@@ -1,0 +1,14 @@
+:root{
+  /* Palette defaults */
+  --ink:#0e1726;
+  --muted:#58647c;
+  --accent:#0ea5a3; /* teal accent */
+  --bg-fallback:#e6f3f6;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink:#e6f0ff;
+    --muted:#b8c5df;
+    --bg-fallback:#375a7a;
+  }
+}
