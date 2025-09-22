@@ -5,7 +5,7 @@ will add sections/pages later without changing the base.
 
 ## Structure
 ```
-/src
+/docs
   index.html         # entry — uses just the dots
   /css
     base.css         # minimal reset + layout
