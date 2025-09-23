@@ -9,16 +9,16 @@
   // ---- Colors from CSS ----
   const BG   = getComputedStyle(document.documentElement)
                  .getPropertyValue('--bg-fallback').trim() || '#e6f3f6';
-  const DOT  = 'rgba(180, 207, 218, 0.92)';
+  const DOT  = 'rgba(222, 237, 243, 0.92)';
   const LINK = 'rgba(93, 201, 240, 0.28)';
 
   // ---- Tunables ----
   const BASE_SPEED = 0.09;
   const LINK_DIST  = 140;
-  const CORNER_MS  = 2000;
-  const CORNER_PULL = 0.06;
-  const FRICTION    = 0.90;
-  const MARGIN      = 12;
+  const CORNER_MS  = 5000;
+  const CORNER_PULL = 0.1;
+  const FRICTION    = 0.5;
+  const MARGIN      = 15;
 
   let nodes = [], last = performance.now();
   let COUNT = 120, W = 0, H = 0;
@@ -69,8 +69,13 @@
   addEventListener('resize', resize);
   addEventListener('mousemove', e => { mouse.x=e.clientX; mouse.y=e.clientY; });
   addEventListener('mouseleave', () => { mouse.x=mouse.y=-9999; });
-  canvas.addEventListener('click', enterCornersMode);
-  canvas.addEventListener('touchstart', ()=>enterCornersMode(), {passive:true});
+
+  window.addEventListener('click', ()=>{
+    if (window.DOTS_MODE === 'free') enterCornersMode();
+  });
+  window.addEventListener('touchstart', ()=>{
+    if (window.DOTS_MODE === 'free') enterCornersMode();
+  }, {passive:true});
 
   resize();
 
