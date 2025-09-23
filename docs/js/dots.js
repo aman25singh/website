@@ -25,8 +25,8 @@
   addEventListener('mouseleave', () => { mouse.x=mouse.y=-9999; });
 
   const BG = getComputedStyle(document.documentElement).getPropertyValue('--bg-fallback').trim() || '#e6f3f6';
-  const DOT = 'rgba(13, 41, 52, 0.92)';
-  const LINK = 'rgba(13, 41, 52, 0.28)';
+  const DOT = 'rgba(180, 207, 218, 0.92)';
+  const LINK = 'rgba(93, 201, 240, 0.28)';
 
   function frame(now){
     const dt = Math.min(50, now - last); last = now;
