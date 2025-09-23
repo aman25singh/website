@@ -10,11 +10,35 @@
   <link rel="stylesheet" href="css/theme.css" />
 </head>
 <body>
-  <!-- MVP: JUST THE DOTS BACKGROUND -->
+  <!-- inside <body>, ABOVE the canvas -->
+  <main id="content">
+    <section class="stage" data-mode="free" id="intro">
+      <h1>Hi, I’m Aman — I tell stories with data.</h1>
+      <p>Scroll to see the dots change mood.</p>
+    </section>
+
+    <section class="stage" data-mode="bull_run" id="finance">
+      <h2>Project: Bull Run</h2>
+      <p>When this section is visible, dots should surge upward/right.</p>
+    </section>
+
+    <section class="stage" data-mode="chart" id="analytics">
+      <h2>Project: Chart Line</h2>
+      <p>Here they’ll settle into a rising line shape.</p>
+    </section>
+
+    <section class="stage" data-mode="free" id="contact">
+      <h2>Contact</h2>
+      <p>LinkedIn · GitHub · Email</p>
+    </section>
+  </main>
+
+  <!-- keep your canvas as-is -->
   <canvas id="dots" aria-hidden="true"></canvas>
 
+  <!-- MVP: JUST THE DOTS BACKGROUND -->
+  <canvas id="dots" aria-hidden="true"></canvas>
   <script src="js/dots.js" defer></script>
-  <!-- Future: app.js for nav, widgets, etc. -->
   <script src="js/app.js" defer></script>
 </body>
 </html>
