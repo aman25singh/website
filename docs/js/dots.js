@@ -218,7 +218,7 @@
         if (n.y > H) n.y -= H;
       }
 
-      // Always enforce exclusion (both modes)
+      // Always enforce exclusion (all  modes)
       enforceMouseExclusion(n);
 
       // Draw dot
