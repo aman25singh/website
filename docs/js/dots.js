@@ -8,7 +8,7 @@
 
   // ---- Colors from CSS ----
   const BG   = getComputedStyle(document.documentElement)
-                 .getPropertyValue('--bg-fallback').trim() || '#e6f3f6';
+                 .getPropertyValue('--bg-fallback').trim() || '#fff7b0ff';
   const DOT  = 'rgba(222, 237, 243, 0.92)';
   const LINK = 'rgba(93, 201, 240, 0.28)';
 
