@@ -1,6 +1,6 @@
 /* Base styles (keep minimal). */
 html,body{height:100%; margin:0}
-body{background:#e6f3f6; font:16px/1.7 system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif; color:var(--ink, #0e1726);}
+body{background:#fdf9ba; font:16px/1.7 system-ui, -apple-system, Segoe UI, Roboto, Inter, Helvetica, Arial, sans-serif; color:var(--ink, #fffeb4);}
 #dots{position:fixed; inset:0; width:100%; height:100%; display:block}
 @media (prefers-reduced-motion: reduce){ #dots{ display:none; } }
 
