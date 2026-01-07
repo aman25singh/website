@@ -1,14 +1,20 @@
 :root{
-  /* Palette defaults */
-  --ink:#e6f0ff;
-  --muted:#b8c5df;
-  --accent:#0ea5a3; /* teal accent */
-  --bg-fallback:#121f2a;
+  /* Anthropic-like core palette */
+  --bg-fallback: #faf9f5;   /* main page background */
+  --ink: #141413;          /* primary text */
+  --muted: #b0aea5;        /* secondary text */
+  --panel: #e8e6dc;        /* cards / subtle sections */
+
+  /* Accents (Anthropic style) */
+  --accent: #d97757;       /* orange */
+  --accent-2: #6a9bcc;     /* blue */
+  --accent-3: #788c5d;     /* green */
+
+  /* Typography */
+  --font-sans: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-serif: "Lora", ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Dots styling (so dots remain visible on light background) */
+  --dots: rgba(20, 20, 19, 0.52);
+  --dots-link: rgba(243, 82, 29, 0.664);
 }
-/*@media (prefers-color-scheme: dark){
-  :root{
-    --ink:#e6f0ff;
-    --muted:#b8c5df;
-    --bg-fallback:#121f2a;
-  }
-}*/
