@@ -15,6 +15,5 @@ will add sections/pages later without changing the base.
     app.js           # future app code (empty now)
   /assets
     favicon.svg
-netlify.toml         # (optional) publish from /src
 ```
 
