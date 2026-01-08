@@ -41,3 +41,11 @@ p{
 }
 .stage h1, .stage h2 { margin: 0 0 .5rem; }
 
+/* Hide scrollbar but keep scroll functionality */
+html {
+  scrollbar-width: none;        /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari */
+}
