@@ -26,13 +26,13 @@ p{
   color: color-mix(in srgb, var(--ink) 88%, var(--muted));
 }
 
-#dots{position:fixed; inset:0; width:100%; height:100%; display:block}
+#dots{position:fixed; inset:0; width:100%; height:100%; display:block; pointer-events: none; z-index: 0;}
 @media (prefers-reduced-motion: reduce){ #dots{ display:none; } }
 
 /* Sections just to create scrollable space, style later */
-#content { position: relative; z-index: 1; }
+#content { position: relative; padding-top: 72px; z-index: 1; }
 .stage {
-  min-height: 100vh;            /* one full screen each */
+  min-height: calc(100vh - 72px);            /* one full screen each */
   display: grid;
   place-content: center;
   padding: 2rem;
@@ -49,3 +49,64 @@ html {
 html::-webkit-scrollbar {
   display: none;                /* Chrome, Safari */
 }
+
+
+/* Header */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.75);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.nav {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand {
+  text-decoration: none;
+  font-weight: 650;
+  color: inherit;
+}
+
+.nav-links {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.75;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Content spacing so header doesn't cover the top */
+.content {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 96px 18px 64px; /* top padding accounts for fixed header */
+}
+
+/* Sections */
+.hero h1 { margin: 0 0 8px; }
+.section { margin-top: 48px; }
+.section h2 { margin: 0 0 10px; }
+
+/* Smooth scroll for anchor links */
+html { scroll-behavior: smooth; }
