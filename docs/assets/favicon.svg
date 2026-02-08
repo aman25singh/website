@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
-  <defs>
-    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0" stop-color="#1ccccc"/>
-      <stop offset="1" stop-color="#1aa3c9"/>
-    </linearGradient>
-  </defs>
-  <rect width="96" height="96" rx="18" fill="url(#g)"/>
-  <text x="48" y="60" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" fill="#062a2f" font-weight="700">A</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 30" version="1.1" x="0px" y="0px"><title>chevron-up</title><desc>Created with Sketch.</desc><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill="#000000" fill-rule="nonzero"><path d="M11.2575379,7.75753788 C11.6675884,7.34748737 12.3324116,7.34748737 12.7424621,7.75753788 L18.7424621,13.7575379 C19.1525126,14.1675884 19.1525126,14.8324116 18.7424621,15.2424621 C18.3324116,15.6525126 17.6675884,15.6525126 17.2575379,15.2424621 L12,9.98492424 L6.74246212,15.2424621 C6.33241161,15.6525126 5.66758839,15.6525126 5.25753788,15.2424621 C4.84748737,14.8324116 4.84748737,14.1675884 5.25753788,13.7575379 L11.2575379,7.75753788 L11.2575379,7.75753788 Z"/></g></g><text x="0" y="39" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Denis Klyuchnikov</text><text x="0" y="44" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text></svg>
