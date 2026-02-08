@@ -51,17 +51,20 @@ html::-webkit-scrollbar {
 }
 
 /* Header */
-.site-header {
+.site-header{
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.75);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+  background: color-mix(in srgb, var(--panel) 85%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
+
 
 .nav {
   max-width: 980px;
