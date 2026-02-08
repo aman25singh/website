@@ -14,17 +14,23 @@
 
     <section class="blog-layout">
 
-      <!-- LEFT COLUMN -->
-      <aside class="blog-left">
-        <h2>SERIES</h2>
-        <ul class="series-list">
-          <li>
-            <button class="series-item" data-log="log-1">
-              Engineering / Architecture
-            </button>
-          </li>
-        </ul>
-      </aside>
+        <aside class="blog-left" id="sidebar">
+        <div class="sidebar-handle">
+            <button id="toggleSidebar" aria-label="Toggle sidebar">⟨</button>
+        </div>
+
+        <div class="sidebar-content">
+            <h2>SERIES</h2>
+
+            <ul class="series-list">
+            <li>
+                <button class="series-item" data-log="log-1">
+                Engineering / Architecture
+                </button>
+            </li>
+            </ul>
+        </div>
+        </aside>
 
       <!-- RIGHT COLUMN -->
       <article class="blog-right" id="viewer">
@@ -36,7 +42,6 @@
 
     </section>
   </main>
-
   <script src="blog.js"></script>
 </body>
 </html>
