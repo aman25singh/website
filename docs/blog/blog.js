@@ -1,3 +1,4 @@
+// ===== Viewer + Series logic =====
 const viewer = document.getElementById("viewer");
 const buttons = document.querySelectorAll(".series-item");
 
@@ -17,9 +18,26 @@ buttons.forEach(btn => {
 
     const path = "./logs/log-1.md";
 
-    const res = await fetch(path);
-    const md = await res.text();
-
-    viewer.innerHTML = renderMarkdown(md);
+    try {
+      const res = await fetch(path);
+      const md = await res.text();
+      viewer.innerHTML = renderMarkdown(md);
+    } catch (err) {
+      viewer.innerHTML = "<p>Error loading markdown.</p>";
+      console.error(err);
+    }
   });
+});
+
+
+// ===== Sidebar collapse / expand logic =====
+const toggleBtn = document.getElementById("toggleSidebar");
+const layout = document.querySelector(".blog-layout");
+
+let isCollapsed = false;
+
+toggleBtn.addEventListener("click", () => {
+  isCollapsed = !isCollapsed;
+  layout.classList.toggle("collapsed", isCollapsed);
+  toggleBtn.textContent = isCollapsed ? "⟩" : "⟨";
 });
