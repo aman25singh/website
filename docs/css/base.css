@@ -6,12 +6,8 @@ html, body {
 }
 
 body {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.6;
-  background: var(--bg-fallback);
-  color: var(--ink);
+  height: 100vh;
+  overflow: hidden; /* if you want no scroll */
 }
 
 /* Typography */
@@ -34,25 +30,19 @@ p {
 }
 
 
-
-/* Hide scrollbar */
-/*html {
-  scrollbar-width: none;
-}
-html::-webkit-scrollbar {
-  display: none;
-}
-
 /* ===================== */
 /* HEADER */
 /* ===================== */
 
+
 .site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   padding: 24px 0;
   background: transparent;
-  position: relative;
-  z-index: 2; /* above canvas */
+  z-index: 2;
 }
 
 .header-inner {
@@ -104,6 +94,7 @@ html::-webkit-scrollbar {
   padding: 2rem;
   color: #ffffff;
 }
+
 
 
 .stage h1,
