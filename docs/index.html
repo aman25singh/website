@@ -7,38 +7,43 @@
   <meta property="og:title" content="Aman Singh">
   <meta property="og:description" content="Notes, experiments, and small things that matter">
   <meta property="og:url" content="https://aman-singh.com">
-  <title>Collecting Ideas / Chasing Dreams</title>
+  <title>Building in Public</title>
+
   <link rel="icon" href="assets/keep_learning.svg" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/theme.css" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
+  <!-- HEADER -->
   <header class="site-header">
-    <nav class="nav">
-      <a class="brand" href="/">Welcome!</a>
-      <div class="nav-links">
+    <div class="header-inner">
+      <div class="brand">Welcome!</div>
+      <nav class="nav-links">
         <a href="/">Home</a>
-        <a href="blog/index.html">Blog</a>
-        <a href="404.html">Projects</a>
-        <a href="404.html">Contact</a>
-      </div>
-    </nav>
+        <a href="/blog.html">Blog</a>
+      </nav>
+    </div>
   </header>
-  <!-- inside <body>, ABOVE the canvas -->
+
+  <!-- MAIN CONTENT -->
   <main id="content">
-    <section class="stage" data-mode="free" id="intro">
-      <h1>Hi, I’m Aman </h1>
+    <section class="stage" id="intro">
+      <h1>Hi, I’m Aman</h1>
       <p>Engineer interested in systems, tools, and thoughtful software.</p>
       <p>Writing monthly in 2026. Building small things along the way.</p>
-      <p> Bookmark this website for interesting reads and fun projects :) </p>
+      <p>Bookmark this website for interesting reads and fun projects :)</p>
     </section>
   </main>
 
-  <!-- MVP: JUST THE DOTS BACKGROUND -->
+  <!-- BACKGROUND -->
   <canvas id="dots" aria-hidden="true"></canvas>
+
   <script src="js/dots.js" defer></script>
   <script src="js/app.js" defer></script>
 </body>
