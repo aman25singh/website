@@ -1,6 +1,11 @@
-/* Base styles (keep minimal). */
-html,body{height:100%; margin:0}
-body{
+/* Base styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
   font-family: var(--font-serif);
   font-weight: 400;
   font-size: 16px;
@@ -9,106 +14,119 @@ body{
   color: var(--ink);
 }
 
+/* Typography */
 h1, h2, h3, .brand {
   font-family: var(--font-sans);
   color: var(--ink);
   letter-spacing: -0.02em;
 }
 
-h1{
+h1 {
   font-size: clamp(48px, 6vw, 84px);
   line-height: 1.02;
   font-weight: 700;
 }
 
-p{
+p {
   max-width: 60ch;
+  margin: 0.5rem auto;
   color: color-mix(in srgb, var(--ink) 88%, var(--muted));
 }
 
-#dots{position:fixed; inset:0; width:100%; height:100%; display:block; pointer-events: none; z-index: 0;}
-@media (prefers-reduced-motion: reduce){ #dots{ display:none; } }
 
-/* Sections just to create scrollable space, style later */
-#content { position: relative; padding-top: 72px; z-index: 1; }
-.stage {
-  min-height: calc(100vh - 72px);            /* one full screen each */
-  display: grid;
-  place-content: center;
-  padding: 2rem;
-  text-align: center;
-  color: #ffffff;               /* readable over your BG */
+
+/* Hide scrollbar */
+/*html {
+  scrollbar-width: none;
 }
-.stage h1, .stage h2 { margin: 0 0 .5rem; }
-
-/* Hide scrollbar but keep scroll functionality */
-html {
-  scrollbar-width: none;        /* Firefox */
-}
-
 html::-webkit-scrollbar {
-  display: none;                /* Chrome, Safari */
+  display: none;
 }
 
-/* Header */
-.site-header{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
+/* ===================== */
+/* HEADER */
+/* ===================== */
 
-  background: color-mix(in srgb, var(--panel) 85%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+.site-header {
+  width: 100%;
+  padding: 24px 0;
+  background: transparent;
+  position: relative;
+  z-index: 2; /* above canvas */
 }
 
-
-.nav {
-  max-width: 980px;
+.header-inner {
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 14px 18px;
+  padding: 0 24px;
+
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  align-items: center;
 }
 
 .brand {
-  text-decoration: none;
-  font-weight: 650;
-  color: inherit;
+  font-weight: 600;
+  font-size: 20px;
 }
 
 .nav-links {
   display: flex;
-  gap: 16px;
+  gap: 32px;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: inherit;
-  opacity: 0.75;
+  color: var(--ink);
+  opacity: 0.7;
+  font-size: 20px;
+  transition: opacity 0.2s ease;
 }
 
 .nav-links a:hover {
   opacity: 1;
-  text-decoration: underline;
 }
 
-/* Content spacing so header doesn't cover the top */
-.content {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 96px 18px 64px; /* top padding accounts for fixed header */
+/* ===================== */
+/* MAIN CONTENT */
+/* ===================== */
+
+#content {
+  position: relative;
+  z-index: 1;
 }
 
-/* Sections */
-.hero h1 { margin: 0 0 8px; }
-.section { margin-top: 48px; }
-.section h2 { margin: 0 0 10px; }
+.stage {
+  height: 100vh;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  padding: 2rem;
+  color: #ffffff;
+}
 
-/* Smooth scroll for anchor links */
-html { scroll-behavior: smooth; }
+
+.stage h1,
+.stage h2 {
+  margin: 0 0 0.5rem;
+}
+
+/* ===================== */
+/* DOTS BACKGROUND */
+/* ===================== */
+
+#dots {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dots {
+    display: none;
+  }
+}
