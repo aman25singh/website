@@ -16,7 +16,7 @@ buttons.forEach(btn => {
     buttons.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
-    const path = "./logs/log-1.md";
+    const path = `./logs/${btn.dataset.log}.md`;
 
     try {
       const res = await fetch(path);
