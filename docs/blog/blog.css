@@ -1,19 +1,90 @@
 /* =====================================================
    BLOG — Warm Terminal
-   Inherits: ../css/theme.css (variables), ../css/base.css (header, dots)
+   Inherits: ../css/theme.css (CSS variables only)
+   All structural styles are self-contained here.
    ===================================================== */
 
-/* Allow the blog page to scroll (base.css locks overflow for home) */
-html,
-body {
-  overflow: auto;
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
   height: auto;
+  overflow: auto;
 }
 
 body {
-  height: auto;
   background: var(--bg-fallback);
+  color: var(--ink);
   font-family: var(--font-sans);
+}
+
+/* ===================== */
+/* HEADER                */
+/* ===================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 0;
+  background: transparent;
+  z-index: 10;
+}
+
+.header-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  opacity: 0.65;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  opacity: 1;
+}
+
+/* ===================== */
+/* DOTS CANVAS           */
+/* ===================== */
+
+#dots {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dots { display: none; }
 }
 
 /* ===================== */
