@@ -11,21 +11,29 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, .brand {
-  font-family: var(--font-sans);
+h1, h2, h3 {
+  font-family: var(--font-serif);
   color: var(--ink);
   letter-spacing: -0.02em;
 }
 
+.brand {
+  font-family: var(--font-sans);
+  color: var(--ink);
+}
+
 h1 {
-  font-size: clamp(48px, 6vw, 84px);
-  line-height: 1.02;
-  font-weight: 700;
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: 1.08;
+  font-weight: 600;
 }
 
 p {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.8;
   max-width: 60ch;
-  margin: 0.5rem auto;
+  margin: 0.6rem auto;
   color: color-mix(in srgb, var(--ink) 88%, var(--muted));
 }
 
@@ -68,8 +76,9 @@ p {
 .nav-links a {
   text-decoration: none;
   color: var(--ink);
-  opacity: 0.7;
-  font-size: 20px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  opacity: 0.65;
   transition: opacity 0.2s ease;
 }
 
