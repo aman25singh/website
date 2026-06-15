@@ -1,6 +1,6 @@
 // Dots background: always roaming + hard cursor avoidance.
 // Optional: click -> corners for a short burst (like original behavior).
-// Uses CSS vars: --bg-fallback, --dots, --dots-link
+// Uses CSS vars: --bg-fallback, --dots, --dots-link, --dots-glow
 
 (function () {
   const canvas = document.getElementById("dots");
@@ -11,23 +11,29 @@
   function readVars() {
     const styles = getComputedStyle(document.documentElement);
     return {
-      BG: styles.getPropertyValue("--bg-fallback").trim() || "#faf9f5",
-      DOT: styles.getPropertyValue("--dots").trim() || "rgba(20, 20, 19, 0.52)",
+      BG: styles.getPropertyValue("--bg-fallback").trim() || "#f5f0e8",
+      DOT: styles.getPropertyValue("--dots").trim() || "rgba(42, 39, 37, 0.15)",
       LINK:
         styles.getPropertyValue("--dots-link").trim() ||
-        "rgba(217, 119, 87, 0.28)",
+        "rgba(124, 107, 196, 0.35)",
+      GLOW:
+        styles.getPropertyValue("--dots-glow").trim() ||
+        "rgba(124, 107, 196, 0.55)",
     };
   }
 
-  let { BG, DOT, LINK } = readVars();
+  let { BG, DOT, LINK, GLOW } = readVars();
 
   // ---- Tunables ----
   const BASE_SPEED = 0.09;
   const LINK_DIST = 140;
 
   // Cursor exclusion zone (hard "no touch")
-  const MOUSE_RADIUS = 90; // adjust: 70-120 feels good
-  const MOUSE_PAD = 2; // extra px so dots never graze cursor
+  const MOUSE_RADIUS = 90;
+  const MOUSE_PAD = 2;
+
+  // Glow zone: dots within this radius get brighter / colored
+  const GLOW_RADIUS = 200;
 
   // Optional click -> corners burst (original vibe)
   const ENABLE_CLICK_TO_CORNERS = false;
@@ -126,15 +132,13 @@
   addEventListener(
     "focus",
     () => {
-      ({ BG, DOT, LINK } = readVars());
+      ({ BG, DOT, LINK, GLOW } = readVars());
     },
     { passive: true }
   );
 
   if (ENABLE_CLICK_TO_CORNERS) {
     window.addEventListener("click", (e) => {
-      // If you want to keep the original gating by section, re-add:
-      // if (window.DOTS_MODE !== 'free') return;
       enterCornersMode(performance.now());
     });
 
@@ -156,7 +160,6 @@
     const dist = Math.hypot(dx, dy);
 
     if (dist <= 0.0001) {
-      // edge case: exactly on cursor
       n.x += MOUSE_RADIUS + MOUSE_PAD;
       return;
     }
@@ -164,13 +167,15 @@
     if (dist < MOUSE_RADIUS) {
       const ang = Math.atan2(dy, dx);
       const target = MOUSE_RADIUS + MOUSE_PAD;
-      // Move directly to the boundary (no "touch")
       n.x = mouse.x + Math.cos(ang) * target;
       n.y = mouse.y + Math.sin(ang) * target;
-
-      // Make its future direction head away (reduces jitter at boundary)
       n.a = ang;
     }
+  }
+
+  // Distance from a dot to the mouse (for glow effect)
+  function mouseDist(n) {
+    return Math.hypot(n.x - mouse.x, n.y - mouse.y);
   }
 
   function frame(now) {
@@ -186,12 +191,9 @@
     ctx.fillStyle = BG;
     ctx.fillRect(0, 0, W, H);
 
-    ctx.fillStyle = DOT;
-    ctx.strokeStyle = LINK;
-    ctx.lineWidth = 1;
-
     const inCorners = mode === "corners";
 
+    // Update positions
     for (const n of nodes) {
       if (inCorners) {
         const ax = (n.tx - n.x) * CORNER_PULL * (dt / 16);
@@ -201,33 +203,47 @@
         n.x += n.vx;
         n.y += n.vy;
 
-        // clamp
         if (n.x < 0) n.x = 0;
         if (n.x > W) n.x = W;
         if (n.y < 0) n.y = 0;
         if (n.y > H) n.y = H;
       } else {
-        // roam
         n.x += Math.cos(n.a) * BASE_SPEED * dt;
         n.y += Math.sin(n.a) * BASE_SPEED * dt;
 
-        // wrap
         if (n.x < 0) n.x += W;
         if (n.x > W) n.x -= W;
         if (n.y < 0) n.y += H;
         if (n.y > H) n.y -= H;
       }
 
-      // Always enforce exclusion (all  modes)
       enforceMouseExclusion(n);
-
-      // Draw dot
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
-      ctx.fill();
     }
 
-    // links
+    // Draw dots — glow near cursor
+    for (const n of nodes) {
+      const md = mouseDist(n);
+      const inGlow = md < GLOW_RADIUS;
+      const glowT = inGlow ? 1 - md / GLOW_RADIUS : 0;
+
+      if (inGlow) {
+        // Purple-tinted dot near cursor
+        ctx.fillStyle = GLOW;
+        ctx.globalAlpha = 0.25 + glowT * 0.75;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 2 + glowT * 1.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      } else {
+        ctx.fillStyle = DOT;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Draw links — glow when both ends are near cursor
+    ctx.lineWidth = 1;
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < i + 16 && j < nodes.length; j++) {
         const a = nodes[i],
@@ -236,7 +252,24 @@
           dy = a.y - b.y,
           d = Math.hypot(dx, dy);
         if (d < LINK_DIST) {
-          ctx.globalAlpha = 1 - d / LINK_DIST;
+          const distAlpha = 1 - d / LINK_DIST;
+
+          // Check if this link is near the cursor
+          const aMd = mouseDist(a);
+          const bMd = mouseDist(b);
+          const nearCursor = aMd < GLOW_RADIUS && bMd < GLOW_RADIUS;
+
+          if (nearCursor) {
+            const avgGlow = 1 - (aMd + bMd) / (2 * GLOW_RADIUS);
+            ctx.strokeStyle = GLOW;
+            ctx.globalAlpha = distAlpha * (0.4 + avgGlow * 0.6);
+            ctx.lineWidth = 1 + avgGlow;
+          } else {
+            ctx.strokeStyle = LINK;
+            ctx.globalAlpha = distAlpha;
+            ctx.lineWidth = 1;
+          }
+
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
@@ -245,6 +278,7 @@
       }
     }
     ctx.globalAlpha = 1;
+    ctx.lineWidth = 1;
 
     if (!document.hidden) requestAnimationFrame(frame);
     else setTimeout(() => requestAnimationFrame(frame), 200);
