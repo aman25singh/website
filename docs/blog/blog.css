@@ -43,11 +43,22 @@ body {
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 18px;
+  font-size: 17px;
   color: var(--ink);
   letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .nav-links {
@@ -60,13 +71,19 @@ body {
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 15px;
-  opacity: 0.65;
-  transition: opacity 0.2s;
+  opacity: 0.5;
+  transition: opacity 0.25s ease, color 0.25s ease, text-shadow 0.25s ease;
 }
 
-.nav-links a:hover,
+.nav-links a:hover {
+  opacity: 1;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(124, 107, 196, 0.4), 0 0 40px rgba(124, 107, 196, 0.15);
+}
+
 .nav-links a[aria-current="page"] {
   opacity: 1;
+  color: var(--accent);
 }
 
 /* ===================== */
@@ -123,10 +140,10 @@ body {
 .blog-left {
   position: sticky;
   top: 24px;
-  border: 1px solid rgba(233, 229, 220, 0.08);
+  border: 1px solid rgba(42, 39, 37, 0.08);
   border-radius: 6px;
   padding: 12px;
-  background: rgba(233, 229, 220, 0.02);
+  background: rgba(42, 39, 37, 0.02);
 }
 
 .sidebar-handle {
@@ -150,7 +167,7 @@ body {
 
 #toggleSidebar {
   background: none;
-  border: 1px solid rgba(233, 229, 220, 0.15);
+  border: 1px solid rgba(42, 39, 37, 0.12);
   border-radius: 3px;
   color: var(--ink);
   font-family: var(--font-sans);
@@ -208,7 +225,7 @@ body {
 
 .series-item:hover {
   color: var(--ink);
-  border-left-color: rgba(233, 229, 220, 0.25);
+  border-left-color: rgba(42, 39, 37, 0.2);
 }
 
 .series-item.active {
@@ -248,7 +265,7 @@ body {
   letter-spacing: -0.02em;
   margin: 0 0 1.75rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(233, 229, 220, 0.1);
+  border-bottom: 1px solid rgba(42, 39, 37, 0.1);
 }
 
 #viewer h2 {

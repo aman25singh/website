@@ -1,17 +1,19 @@
 :root{
-  --bg-fallback: #12110f;   /* warm near-black */
-  --ink: #e9e5dc;           /* soft off-white */
-  --muted: #a9a396;         /* secondary text */
-  --panel: #1a1916;         /* subtle sections */
+  --bg-fallback: #f5f0e8;   /* warm cream (matches logo) */
+  --ink: #2a2725;            /* dark charcoal */
+  --muted: #7a7570;          /* warm gray secondary */
+  --panel: #ede8df;          /* subtle cream sections */
 
-  --accent: #d97757;
-  --accent-2: #6a9bcc;
-  --accent-3: #788c5d;
+  --accent: #7c6bc4;         /* purple/lavender (from logo) */
+  --accent-2: #5a4a9e;       /* deeper purple */
+  --accent-3: #b8a9e8;       /* light lavender */
 
-  --font-sans: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  --font-serif: "Lora", ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-serif: "Fraunces", "Lora", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  /* Dots for dark bg */
-  --dots: rgba(233, 229, 220, 0.18);
-  --dots-link: rgba(217, 119, 87, 0.60);
+  /* Dots for light bg */
+  --dots: rgba(42, 39, 37, 0.15);
+  --dots-link: rgba(124, 107, 196, 0.35);
+  --dots-glow: rgba(124, 107, 196, 0.55);
 }
