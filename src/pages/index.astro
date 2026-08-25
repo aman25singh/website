@@ -1,0 +1,183 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Dots from "../components/Dots.astro";
+import PostCard from "../components/PostCard.astro";
+import { getPosts, getFeaturedPosts, getProjects, postSlug } from "../lib/content";
+import { site } from "../lib/site";
+
+const featured = await getFeaturedPosts();
+const recent = (await getPosts()).slice(0, 5);
+const projects = (await getProjects()).slice(0, 3);
+
+// Current areas of interest — edit freely as focus shifts.
+const interests = [
+  "distributed systems",
+  "cloud infrastructure",
+  "data engineering",
+  "quantitative finance",
+  "developer tools",
+];
+---
+
+<BaseLayout title={site.title} description={site.description}>
+  <Dots />
+
+  <section class="intro">
+    <div class="prose-wrap">
+      <p class="eyebrow">{site.tagline}</p>
+      <h1>An engineering notebook.</h1>
+      <p class="lede">
+        I'm {site.author}. This is my corner of the internet — where I think out loud about
+        software, systems, and the things I'm learning. Part publication, part laboratory, kept
+        deliberately plain so the writing does the work.
+      </p>
+      <p class="interests">
+        Currently interested in {
+          interests.map((t, i) => (
+            <>
+              <span>{t}</span>
+              {i < interests.length - 1 ? ", " : "."}
+            </>
+          ))
+        }
+      </p>
+    </div>
+  </section>
+
+  <div class="prose-wrap sections">
+    {
+      featured.length > 0 && (
+        <section class="block">
+          <div class="block-head">
+            <h2>Featured</h2>
+          </div>
+          {featured.map((post) => (
+            <PostCard post={post} compact />
+          ))}
+        </section>
+      )
+    }
+
+    <section class="block">
+      <div class="block-head">
+        <h2>Recent writing</h2>
+        <a href="/writing">All posts →</a>
+      </div>
+      {
+        recent.length === 0 ? (
+          <p class="muted">
+            Nothing published yet. The first post is a <code>npm run blog:new</code> away.
+          </p>
+        ) : (
+          recent.map((post) => <PostCard post={post} compact />)
+        )
+      }
+    </section>
+
+    {
+      projects.length > 0 && (
+        <section class="block">
+          <div class="block-head">
+            <h2>Projects</h2>
+            <a href="/projects">All projects →</a>
+          </div>
+          <ul class="proj-list">
+            {projects.map((p) => (
+              <li>
+                <a href={`/projects/${postSlug(p)}`}>{p.data.title}</a>
+                <span class="proj-desc">{p.data.description}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .intro {
+    position: relative;
+    z-index: 1;
+    padding: clamp(3rem, 12vh, 7rem) 0 3rem;
+  }
+  .intro h1 {
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    margin: 0.6rem 0 1rem;
+  }
+  .lede {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 58ch;
+    margin: 0 0 1.2rem;
+  }
+  .interests {
+    color: var(--faint);
+    max-width: 58ch;
+  }
+  .interests span {
+    color: var(--muted);
+  }
+
+  .sections {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 3rem;
+    padding-bottom: 1rem;
+  }
+  .block-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .block-head h2 {
+    font-size: 1.1rem;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .block-head a {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .block-head a:hover {
+    color: var(--accent);
+  }
+  .proj-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .proj-list li {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .proj-list a {
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .proj-list a:hover {
+    color: var(--accent);
+  }
+  .proj-desc {
+    display: block;
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 2px;
+  }
+  code {
+    background: var(--bg-soft);
+    padding: 0.1em 0.4em;
+    border-radius: 5px;
+  }
+</style>
