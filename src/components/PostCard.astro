@@ -1,0 +1,93 @@
+---
+import type { BlogPost } from "../lib/content";
+import { postSlug, readingTime } from "../lib/content";
+import { formatDate, isoDate } from "../lib/format";
+
+interface Props {
+  post: BlogPost;
+  /** Compact rows for dense lists; default is the roomier card. */
+  compact?: boolean;
+}
+
+const { post, compact = false } = Astro.props;
+const slug = postSlug(post);
+const { title, description, date, tags } = post.data;
+---
+
+<article class:list={["post-card", { compact }]}>
+  <a class="post-link" href={`/writing/${slug}`}>
+    <h3>{title}</h3>
+  </a>
+  <div class="meta">
+    <time datetime={isoDate(date)}>{formatDate(date)}</time>
+    <span aria-hidden="true">·</span>
+    <span>{readingTime(post.body)}</span>
+  </div>
+  {!compact && <p class="desc">{description}</p>}
+  {
+    tags.length > 0 && (
+      <ul class="tags">
+        {tags.map((t) => (
+          <li>
+            <a href={`/tags/${t}`}>#{t}</a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</article>
+
+<style>
+  .post-card {
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .post-card.compact {
+    padding: 0.9rem 0;
+  }
+  .post-link {
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .post-link h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1.3rem;
+    transition: color 0.18s ease;
+  }
+  .compact .post-link h3 {
+    font-size: 1.1rem;
+  }
+  .post-link:hover h3 {
+    color: var(--accent);
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--faint);
+  }
+  .desc {
+    margin: 0.5rem 0 0.6rem;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    list-style: none;
+    margin: 0.4rem 0 0;
+    padding: 0;
+  }
+  .tags a {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .tags a:hover {
+    color: var(--accent);
+  }
+</style>

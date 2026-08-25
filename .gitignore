@@ -1,0 +1,17 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# generated types
+*.tsbuildinfo
+
+# environment
+.env
+.env.production
+
+# macOS / editor cruft
+.DS_Store
+Thumbs.db

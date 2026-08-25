@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import { getPosts, getTags } from "../../lib/content";
+
+const posts = await getPosts();
+const tags = await getTags();
+---
+
+<BaseLayout
+  title="Writing"
+  description="Essays and notes on software, systems, cloud, data, finance, and things I'm learning."
+>
+  <div class="prose-wrap page">
+    <header class="page-head">
+      <p class="eyebrow">Writing</p>
+      <h1>The archive</h1>
+      <p class="muted">
+        {posts.length} post{posts.length === 1 ? "" : "s"}, newest first. Long-form thinking on
+        engineering, systems, data, and finance.
+      </p>
+    </header>
+
+    {
+      tags.length > 0 && (
+        <nav class="tag-row" aria-label="Browse by tag">
+          {tags.map((t) => (
+            <a href={`/tags/${t.tag}`}>
+              #{t.tag} <span>{t.count}</span>
+            </a>
+          ))}
+        </nav>
+      )
+    }
+
+    {
+      posts.length === 0 ? (
+        <p class="muted empty">
+          No posts yet. Create one with <code>npm run blog:new</code>.
+        </p>
+      ) : (
+        <section class="list">
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-top: 2.5rem;
+  }
+  .page-head {
+    margin-bottom: 1.5rem;
+  }
+  .page-head h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin: 0.4rem 0 0.6rem;
+  }
+  .page-head .muted {
+    max-width: 55ch;
+  }
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 1.5rem 0 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .tag-row a {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    transition:
+      color 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .tag-row a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .tag-row a span {
+    color: var(--faint);
+  }
+  .empty code {
+    background: var(--bg-soft);
+    padding: 0.1em 0.4em;
+    border-radius: 5px;
+  }
+</style>

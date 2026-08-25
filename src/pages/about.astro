@@ -1,0 +1,72 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../lib/site";
+import "../styles/prose.css";
+---
+
+<BaseLayout title="About" description={`About ${site.author} and this site.`}>
+  <div class="prose-wrap page">
+    <header class="page-head">
+      <p class="eyebrow">About</p>
+      <h1>Hello.</h1>
+    </header>
+
+    <div class="prose">
+      <p>
+        I'm {site.author}. This site is my long-term home on the internet — an engineering notebook
+        and personal publication rolled into one. I write here about software, systems, cloud and
+        data infrastructure, quantitative and finance topics, and whatever I happen to be learning.
+      </p>
+
+      <p>
+        <!-- PLACEHOLDER: replace with a real short bio. Keep it concise. -->
+        {" "}<em
+          >[Add a sentence or two about your background and what you work on. This is a placeholder
+          — edit <code>src/pages/about.astro</code>.]</em
+        >
+      </p>
+
+      <h2>What this site is for</h2>
+      <p>
+        Less a résumé, more a workbench. I use it to think in public: to turn half-formed ideas into
+        writing, to document projects and experiments, and to keep a durable record of things worth
+        remembering. If something here is useful to you, that's a happy side effect.
+      </p>
+
+      <h2>How it's built</h2>
+      <p>
+        Static site generated with Astro, written in Markdown, and published straight from Git —
+        every post is a file in the repository. No CMS, no database, no dashboard. There's an
+        <a href="/rss.xml">RSS feed</a> if you'd like to follow along.
+      </p>
+
+      <h2>Elsewhere</h2>
+      <ul>
+        {
+          site.social.github && (
+            <li>
+              GitHub — <a href={site.social.github}>{site.social.github.replace("https://", "")}</a>
+            </li>
+          )
+        }
+        <!-- PLACEHOLDER: add other links (email, Mastodon, LinkedIn) as desired. -->
+      </ul>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-top: 2.5rem;
+  }
+  .page-head h1 {
+    font-size: clamp(2.2rem, 6vw, 3rem);
+    margin: 0.4rem 0 1.5rem;
+  }
+  code {
+    background: var(--bg-soft);
+    padding: 0.1em 0.4em;
+    border-radius: 5px;
+    font-size: 0.85em;
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import type { Adjacent } from "../lib/content";
+
+interface Props {
+  prev: Adjacent; // older
+  next: Adjacent; // newer
+}
+
+const { prev, next } = Astro.props;
+---
+
+{
+  (prev || next) && (
+    <nav class="post-nav" aria-label="Adjacent posts">
+      <div class="col">
+        {next && (
+          <a href={`/writing/${next.slug}`}>
+            <span class="dir">← Newer</span>
+            <span class="t">{next.post.data.title}</span>
+          </a>
+        )}
+      </div>
+      <div class="col end">
+        {prev && (
+          <a href={`/writing/${prev.slug}`}>
+            <span class="dir">Older →</span>
+            <span class="t">{prev.post.data.title}</span>
+          </a>
+        )}
+      </div>
+    </nav>
+  )
+}
+
+<style>
+  .post-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .col.end {
+    text-align: right;
+  }
+  .post-nav a {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .dir {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--faint);
+  }
+  .t {
+    font-weight: 500;
+    transition: color 0.18s ease;
+  }
+  .post-nav a:hover .t {
+    color: var(--accent);
+  }
+  @media (max-width: 560px) {
+    .post-nav {
+      grid-template-columns: 1fr;
+    }
+    .col.end {
+      text-align: left;
+    }
+  }
+</style>
