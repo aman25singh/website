@@ -1,0 +1,177 @@
+---
+import type { MarkdownHeading } from "astro";
+import type { Adjacent } from "../lib/content";
+import BaseLayout from "./BaseLayout.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import PostNav from "../components/PostNav.astro";
+import { formatDate, isoDate } from "../lib/format";
+import "../styles/prose.css";
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  updated?: Date;
+  tags: string[];
+  readingTime: string;
+  headings: MarkdownHeading[];
+  image?: string;
+  isDraft?: boolean;
+  prev?: Adjacent;
+  next?: Adjacent;
+}
+
+const {
+  title,
+  description,
+  date,
+  updated,
+  tags,
+  readingTime,
+  headings,
+  image,
+  isDraft = false,
+  prev = null,
+  next = null,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  type="article"
+  noindex={isDraft}
+  article={{
+    publishedTime: date.toISOString(),
+    modifiedTime: updated?.toISOString(),
+    tags,
+  }}
+>
+  <article class="article prose-wrap">
+    {isDraft && <p class="draft-banner">Draft — not published. Visible only in local preview.</p>}
+
+    <header class="article-head">
+      <a class="back" href="/writing">← Writing</a>
+      <h1>{title}</h1>
+      <p class="lede">{description}</p>
+      <div class="meta">
+        <time datetime={isoDate(date)}>{formatDate(date)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime}</span>
+        {updated && <span aria-hidden="true">·</span>}
+        {updated && <span>Updated {formatDate(updated)}</span>}
+      </div>
+      {
+        tags.length > 0 && (
+          <ul class="tags">
+            {tags.map((t) => (
+              <li>
+                <a href={`/tags/${t}`}>#{t}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <div class="article-body">
+      <div class="prose">
+        <slot />
+      </div>
+      <aside class="article-aside">
+        <div class="aside-sticky">
+          <TableOfContents headings={headings} />
+        </div>
+      </aside>
+    </div>
+
+    <PostNav prev={prev} next={next} />
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    padding-top: 2.5rem;
+  }
+  .draft-banner {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    border: 1px dashed var(--accent);
+    border-radius: 8px;
+    padding: 0.6rem 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+  .back {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .back:hover {
+    color: var(--accent);
+  }
+  .article-head {
+    margin-bottom: 2.5rem;
+  }
+  .article-head h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 0.8rem 0 0.6rem;
+  }
+  .lede {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: var(--measure);
+    margin: 0 0 1rem;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--faint);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    list-style: none;
+    margin: 0.8rem 0 0;
+    padding: 0;
+  }
+  .tags a {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .tags a:hover {
+    color: var(--accent);
+  }
+
+  /* On wide screens the TOC floats in the right margin without stealing from
+     the reading measure. On narrow screens it drops above the content. */
+  .article-body {
+    position: relative;
+  }
+  .article-aside {
+    display: none;
+  }
+  @media (min-width: 1100px) {
+    .article-aside {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: calc(var(--measure) + 3rem);
+      width: 15rem;
+      height: 100%;
+    }
+    .aside-sticky {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+</style>
