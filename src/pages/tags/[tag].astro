@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import { getTags, getPostsByTag } from "../../lib/content";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths = (async () => {
+  const tags = await getTags();
+  return Promise.all(
+    tags.map(async ({ tag }) => ({
+      params: { tag },
+      props: { tag, posts: await getPostsByTag(tag) },
+    })),
+  );
+}) satisfies GetStaticPaths;
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`#${tag}`} description={`Writing tagged ${tag}.`}>
+  <div class="prose-wrap page">
+    <header class="page-head">
+      <a class="back" href="/tags">← All tags</a>
+      <h1>#{tag}</h1>
+      <p class="muted">
+        {posts.length} post{posts.length === 1 ? "" : "s"} tagged <strong>{tag}</strong>.
+      </p>
+    </header>
+    <section class="list">
+      {posts.map((post) => <PostCard post={post} />)}
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-top: 2.5rem;
+  }
+  .back {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .back:hover {
+    color: var(--accent);
+  }
+  .page-head h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin: 0.5rem 0 0.4rem;
+  }
+</style>

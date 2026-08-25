@@ -4,30 +4,57 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static personal portfolio/blog site for thecognitivekombucha.com. No build system, framework, or dependencies — pure HTML, CSS, and vanilla JavaScript. Deployed via GitHub Pages from the `docs/` directory.
+Personal website and engineering blog for **thecognitivekombucha.com**. Built with **Astro** (static
+output). **Git is the CMS** — every post is a Markdown/MDX file under `content/`; pushing to `main`
+triggers a GitHub Actions build that deploys the static site to GitHub Pages. No database, no CMS UI.
 
-## Running Locally
+## Commands
 
-Serve `docs/` with any static HTTP server, e.g.:
 ```bash
-python -m http.server 8000 --directory docs
+npm run dev        # dev server (http://localhost:4321); drafts are visible here
+npm run build      # production build → dist/
+npm run preview    # serve the production build
+npm run check      # astro check — type-checks and validates all frontmatter
+npm run verify     # check + build (mirrors CI)
+npm run format     # Prettier
+npm run blog:new   # scaffold a new post (add `-- --project` for a project entry)
 ```
-Then open `http://localhost:8000`. Or just open `docs/index.html` directly in a browser.
 
 ## Architecture
 
-All deployable content lives in `docs/`:
+- **`content/blog/`, `content/projects/`** — the content. Markdown/MDX files with frontmatter. This
+  is the source of truth; do not store content anywhere else.
+- **`src/content.config.ts`** — Zod schemas for the collections. Frontmatter is validated at build
+  time; invalid metadata fails `astro check` / `astro build` with a file+field error.
+- **`src/lib/content.ts`** — all content loading and derived logic (published filtering, sorting,
+  slug derivation, reading time, tags, adjacent posts). Keep content logic here, out of components.
+- **`src/lib/site.ts`** — site-wide metadata (title, author, nav, social). Edit here, not in templates.
+- **`src/layouts/`** — `BaseLayout` (head + header + footer + theme init) and `PostLayout` (article
+  chrome: TOC, prev/next, draft banner).
+- **`src/components/`** — reusable UI (`BaseHead` for all SEO/meta, `Header`, `Footer`, `PostCard`,
+  `TableOfContents`, `PostNav`, `ThemeToggle`, `Dots` particle background).
+- **`src/pages/`** — routes. `/`, `/writing`, `/writing/[slug]`, `/tags`, `/tags/[tag]`, `/projects`,
+  `/projects/[slug]`, `/about`, `404`, and `rss.xml.ts`.
+- **`src/styles/`** — `global.css` (design tokens as CSS variables + base) and `prose.css` (long-form
+  article typography). All colors are CSS variables; light + dark are defined here.
+- **`public/`** — copied verbatim to the site root: `assets/` (images, favicon, logo), `CNAME`,
+  `robots.txt`. Sitemap and RSS are generated into the build.
+- **`.github/workflows/deploy.yml`** — CI: install → check → build → deploy to Pages on push to `main`.
 
-- **`css/base.css`** — main layout and component styles
-- **`css/theme.css`** — all CSS custom properties (colors, fonts); edit here for theming
-- **`js/app.js`** — navigation and mode-switching logic
-- **`js/dots.js`** — canvas-based animated particle background (60–180 particles, cursor exclusion, edge-wrapping, respects `prefers-reduced-motion`)
-- **`blog/`** — self-contained blog system with a two-column layout (collapsible left sidebar + right content viewer), a regex-based markdown renderer in `blog.js`, and posts stored as `.md` files in `blog/logs/`
+## Key patterns
 
-## Key Patterns
+- **Adding a post:** `npm run blog:new`, or add `content/blog/YYYY-MM-DD-slug.md` with frontmatter.
+  Ordering is by `date` (newest first). No manifest or registry to update.
+- **Drafts:** `published: false` → visible in `dev`, excluded from prod build, RSS, and sitemap.
+- **Slugs:** URL is `data.slug` if present, else the filename with a leading `YYYY-MM-DD-` stripped.
+- **Theming:** edit CSS variables in `src/styles/global.css`. The `Dots` component reads `--dots*`
+  and `--bg-fallback` at runtime and re-reads them on theme toggle, so color changes flow through.
+- **SEO:** all `<head>` metadata is centralized in `src/components/BaseHead.astro`; article pages pass
+  `type="article"` + `article={...}` to emit OpenGraph/JSON-LD from frontmatter.
 
-**Theming:** All colors are CSS variables in `theme.css`. The dots particle system reads `--dots`, `--dots-link`, and `--bg-fallback` at runtime, so color changes flow through automatically.
+## Conventions
 
-**Blog posts:** Add a new `.md` file to `docs/blog/logs/` and register it in the series list inside `blog/blog.js`.
-
-**Deployment:** Push to `main` → GitHub Pages auto-deploys. The `CNAME` file sets the custom domain.
+- TypeScript is strict; don't suppress errors. `astro check` must pass.
+- Keep client-side JS minimal — the site is static; only the theme toggle and (homepage-only) dots
+  ship JS. Don't add framework/hydration for content pages.
+- Separate content loading (`src/lib`) from presentation (`src/components`, `src/pages`).
