@@ -1,0 +1,102 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getProjects, postSlug } from "../../lib/content";
+import { formatDate, isoDate } from "../../lib/format";
+import type { GetStaticPaths } from "astro";
+import "../../styles/prose.css";
+
+export const getStaticPaths = (async () => {
+  const projects = await getProjects();
+  return projects.map((project) => ({
+    params: { slug: postSlug(project) },
+    props: { project },
+  }));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const d = project.data;
+---
+
+<BaseLayout title={d.title} description={d.description} noindex={!d.published}>
+  <article class="prose-wrap page">
+    <header class="head">
+      <a class="back" href="/projects">← Projects</a>
+      <div class="title-row">
+        <h1>{d.title}</h1>
+        <span class:list={["status", d.status]}>{d.status}</span>
+      </div>
+      <p class="lede">{d.description}</p>
+      <div class="meta">
+        <time datetime={isoDate(d.date)}>{formatDate(d.date)}</time>
+        {d.repo && <a href={d.repo}>Repository</a>}
+        {d.url && <a href={d.url}>Live</a>}
+      </div>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-top: 2.5rem;
+  }
+  .back {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .back:hover {
+    color: var(--accent);
+  }
+  .title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 0.8rem 0 0.5rem;
+  }
+  .title-row h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin: 0;
+  }
+  .status {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--faint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+  .status.active {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: var(--measure);
+    margin: 0 0 1rem;
+  }
+  .meta {
+    display: flex;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--faint);
+    margin-bottom: 2.5rem;
+  }
+  .meta a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .meta a:hover {
+    color: var(--accent);
+  }
+</style>

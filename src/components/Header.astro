@@ -1,0 +1,87 @@
+---
+import { site } from "../lib/site";
+import ThemeToggle from "./ThemeToggle.astro";
+
+// Active-section highlighting: match the first path segment.
+const seg = "/" + (Astro.url.pathname.split("/").filter(Boolean)[0] ?? "");
+---
+
+<header class="site-header">
+  <div class="header-inner wrap">
+    <a href="/" class="brand">
+      <img
+        src="/assets/thecognitivekombuchalogo.png"
+        alt=""
+        width="32"
+        height="32"
+        class="brand-logo"
+      />
+      <span>{site.title}</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      {
+        site.navigation.map((item) => (
+          <a href={item.href} aria-current={seg === item.href ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 14px 0;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .brand-logo {
+    border-radius: 7px;
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .nav a {
+    color: var(--muted);
+    font-size: 15px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .nav a:hover,
+  .nav a[aria-current="page"] {
+    color: var(--ink);
+  }
+  @media (max-width: 560px) {
+    .brand span {
+      display: none;
+    }
+    .nav {
+      gap: 16px;
+    }
+  }
+</style>

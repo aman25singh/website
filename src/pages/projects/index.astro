@@ -1,0 +1,136 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getProjects, postSlug } from "../../lib/content";
+import { formatDate, isoDate } from "../../lib/format";
+
+const projects = await getProjects();
+---
+
+<BaseLayout
+  title="Projects"
+  description="Software, experiments, tools, and prototypes — a project laboratory."
+>
+  <div class="prose-wrap page">
+    <header class="page-head">
+      <p class="eyebrow">Laboratory</p>
+      <h1>Projects</h1>
+      <p class="muted">
+        Software, experiments, tools, and prototypes. A living record of things built and things
+        being figured out.
+      </p>
+    </header>
+
+    {
+      projects.length === 0 ? (
+        <p class="muted">
+          No projects yet. Add a Markdown file under <code>content/projects/</code>.
+        </p>
+      ) : (
+        <section class="list">
+          {projects.map((p) => (
+            <article class="proj">
+              <div class="proj-head">
+                <a href={`/projects/${postSlug(p)}`}>
+                  <h3>{p.data.title}</h3>
+                </a>
+                <span class:list={["status", p.data.status]}>{p.data.status}</span>
+              </div>
+              <p class="desc">{p.data.description}</p>
+              <div class="meta">
+                <time datetime={isoDate(p.data.date)}>{formatDate(p.data.date)}</time>
+                {p.data.repo && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <a href={p.data.repo}>Repo</a>
+                  </>
+                )}
+                {p.data.url && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <a href={p.data.url}>Live</a>
+                  </>
+                )}
+              </div>
+            </article>
+          ))}
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-top: 2.5rem;
+  }
+  .page-head {
+    margin-bottom: 2rem;
+  }
+  .page-head h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin: 0.4rem 0 0.6rem;
+  }
+  .page-head .muted {
+    max-width: 55ch;
+  }
+  .proj {
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .proj-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .proj-head a {
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .proj-head h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    transition: color 0.18s ease;
+  }
+  .proj-head a:hover h3 {
+    color: var(--accent);
+  }
+  .status {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--faint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+  .status.active {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .desc {
+    margin: 0.5rem 0 0.6rem;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--faint);
+  }
+  .meta a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .meta a:hover {
+    color: var(--accent);
+  }
+  code {
+    background: var(--bg-soft);
+    padding: 0.1em 0.4em;
+    border-radius: 5px;
+  }
+</style>
