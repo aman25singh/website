@@ -1,0 +1,35 @@
+{
+  "name": "thecognitivekombucha",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal website and engineering notebook for thecognitivekombucha.com",
+  "engines": {
+    "node": ">=20 <21 || >=22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write \"**/*.{astro,ts,js,mjs,md,mdx,css,json}\"",
+    "format:check": "prettier --check \"**/*.{astro,ts,js,mjs,md,mdx,css,json}\"",
+    "blog:new": "node scripts/new-post.mjs",
+    "verify": "astro check && astro build"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.2.0",
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.6.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "prettier": "^3.5.0",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.7.0"
+  }
+}
