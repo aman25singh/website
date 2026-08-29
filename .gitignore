@@ -15,3 +15,9 @@ node_modules/
 # macOS / editor cruft
 .DS_Store
 Thumbs.db
+
+# local drafting files kept alongside the content they feed into.
+# Not posts: the collection glob only matches *.md / *.mdx, so these are
+# invisible to the build either way. Ignored so `git add -A` can't sweep
+# a half-written draft into a commit.
+content/**/scratch*
