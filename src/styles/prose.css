@@ -141,7 +141,7 @@
   }
 }
 
-/* Tables — responsive: the wrapper scrolls on small screens */
+/* Tables, responsive: the wrapper scrolls on small screens */
 .prose .table-scroll {
   max-width: 100%;
   overflow-x: auto;

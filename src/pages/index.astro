@@ -11,7 +11,7 @@ const featuredIds = new Set(featured.map((p) => p.id));
 const recent = (await getPosts()).filter((p) => !featuredIds.has(p.id)).slice(0, 5);
 const projects = (await getProjects()).slice(0, 3);
 
-// Current areas of interest — edit freely as focus shifts.
+// Current areas of interest; edit freely as focus shifts.
 const interests = [
   "distributed systems",
   "cloud infrastructure",
@@ -29,9 +29,9 @@ const interests = [
       <p class="eyebrow">{site.tagline}</p>
       <h1>An engineering notebook.</h1>
       <p class="lede">
-        I'm {site.author}. This is my corner of the internet — where I think out loud about
-        software, systems, and the things I'm learning. Part publication, part laboratory, kept
-        deliberately plain so the writing does the work.
+        I'm {site.author}. This is my corner of the internet, where I think out loud about software,
+        systems, and the things I'm learning. Part publication, part laboratory, kept deliberately
+        plain so the writing does the work.
       </p>
       <p class="interests">
         Currently interested in {
