@@ -1,6 +1,6 @@
 ---
 title: "The Future of Remote Work"
-description: "A draft — infrastructure for a borderless workforce. Not finished, not published."
+description: "A draft on infrastructure for a borderless workforce. Not finished, not published."
 date: "2026-08-20"
 tags:
   - work
@@ -14,7 +14,7 @@ slug: "the-future-of-remote-work"
 > you can work on it, but it is excluded from the production build, the RSS
 > feed, and the sitemap until you flip the flag.
 
-The shift toward distributed teams is no longer a trend — it is becoming the
+The shift toward distributed teams is no longer a trend. It is becoming the
 default for a lot of software work. In this rough draft I want to explore how
 infrastructure has to evolve to support a borderless workforce.
 

@@ -29,7 +29,7 @@
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --measure: 68ch; /* reading measure for long-form */
-  --page: 720px; /* single shared column — header, content, and footer all use
+  --page: 720px; /* single shared column; header, content, and footer all use
                     this so their left/right edges align on every page */
   --page-wide: 720px; /* kept as an alias; chrome aligns with content */
 

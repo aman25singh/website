@@ -47,7 +47,7 @@ export default defineConfig({
   trailingSlash: "ignore",
   integrations: [mdx(), sitemap()],
   markdown: {
-    // Shiki ships with Astro — no client JS, highlighting happens at build time.
+    // Shiki ships with Astro, so no client JS is needed; highlighting happens at build time.
     shikiConfig: {
       themes: {
         light: "github-light",

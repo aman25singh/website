@@ -5,7 +5,7 @@ interface Props {
   headings: MarkdownHeading[];
 }
 
-// Only surface h2/h3 — deeper nesting makes a noisy TOC.
+// Only surface h2/h3, since deeper nesting makes a noisy TOC.
 const toc = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Building This Site"
-description: "Why I wanted my website to function as a living engineering notebook — and how Git became the CMS."
+description: "Why I wanted my website to function as a living engineering notebook, and how Git became the CMS."
 date: "2026-08-24"
 updated: "2026-08-24"
 tags:
@@ -13,7 +13,7 @@ slug: "building-this-site"
 ---
 
 I wanted a home on the internet that behaves less like a résumé and more like a
-workbench. Somewhere to think in public, keep notes, and document projects —
+workbench. Somewhere to think in public, keep notes, and document projects,
 without a CMS, a database, or a login screen standing between me and the page.
 
 The rule I set myself: **publishing should be a `git push`.** Write a Markdown
@@ -22,7 +22,7 @@ file, commit it, push it, and the article appears. That's the whole workflow.
 ## The stack
 
 The site is a static build. No client-side framework runs in the reader's
-browser for an ordinary post — the HTML is generated ahead of time and served
+browser for an ordinary post; the HTML is generated ahead of time and served
 as files.
 
 | Concern            | Choice                          |
@@ -62,5 +62,5 @@ ship a broken page. That guarantee is worth more than any dashboard.
 - **Speed.** Pages are static; the only JavaScript is a small theme toggle.
 - **Longevity.** Plain Markdown outlives any framework I might pick.
 
-There's more to build — search, the occasional interactive demo — but the
+There's more to build (search, the occasional interactive demo), but the
 foundation is deliberately boring. Boring lasts.
