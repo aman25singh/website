@@ -13,7 +13,7 @@ import "../styles/prose.css";
 
     <div class="prose">
       <p>
-        I'm {site.author}. This site is my long-term home on the internet — an engineering notebook
+        I'm {site.author}. This site is my long-term home on the internet: an engineering notebook
         and personal publication rolled into one. I write here about software, systems, cloud and
         data infrastructure, quantitative and finance topics, and whatever I happen to be learning.
       </p>
@@ -27,7 +27,7 @@ import "../styles/prose.css";
 
       <h2>How it's built</h2>
       <p>
-        Static site generated with Astro, written in Markdown, and published straight from Git,
+        Static site generated with Astro, written in Markdown, and published straight from Git;
         every post is a file in the repository. No CMS, no database, no dashboard. There's an
         <a href="/rss.xml">RSS feed</a> if you'd like to follow along.
       </p>
@@ -37,7 +37,7 @@ import "../styles/prose.css";
         {
           site.social.github && (
             <li>
-              GitHub : <a href={site.social.github}>{site.social.github.replace("https://", "")}</a>
+              GitHub: <a href={site.social.github}>{site.social.github.replace("https://", "")}</a>
             </li>
           )
         }

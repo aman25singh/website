@@ -18,10 +18,10 @@ and published straight from Git.
 
 ## Highlights
 
-- **Git-as-CMS** — every post is a Markdown file; pushing to `main` deploys.
-- **Type-safe content** — frontmatter is validated with Zod at build time.
-- **Zero-JS reading** — pages are static HTML; the only script is a theme toggle.
-- **Built-in feeds** — RSS, sitemap, and per-article social metadata.
+- **Git-as-CMS**: every post is a Markdown file; pushing to `main` deploys.
+- **Type-safe content**: frontmatter is validated with Zod at build time.
+- **Zero-JS reading**: pages are static HTML; the only script is a theme toggle.
+- **Built-in feeds**: RSS, sitemap, and per-article social metadata.
 
 ## Why it exists
 

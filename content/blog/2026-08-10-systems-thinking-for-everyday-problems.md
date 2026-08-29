@@ -11,13 +11,13 @@ slug: "systems-thinking-for-everyday-problems"
 ---
 
 I used to think systems thinking was something you applied to large-scale
-infrastructure — distributed databases, microservice orchestration, deployment
+infrastructure: distributed databases, microservice orchestration, deployment
 pipelines. It took me a while to notice I was using it everywhere else too.
 
 ## What it actually means
 
 A system is just a set of parts with relationships. The interesting work is
-usually not in the parts themselves but in how they interact — and what happens
+usually not in the parts themselves but in how they interact, and what happens
 at the boundaries.
 
 When a process feels broken, the instinct is to fix the part that's most
@@ -26,7 +26,7 @@ where it originates.
 
 ## A simple example
 
-My mornings used to be chaotic. I'd spend the first hour reacting — to
+My mornings used to be chaotic. I'd spend the first hour reacting to
 notifications, to a vague sense of what I was supposed to do that day, to
 whatever felt most urgent.
 

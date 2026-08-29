@@ -1,6 +1,6 @@
 # The Cognitive Kombucha
 
-My personal website and engineering notebook — [thecognitivekombucha.com](https://thecognitivekombucha.com).
+My personal website and engineering notebook: [thecognitivekombucha.com](https://thecognitivekombucha.com).
 
 A minimal, fast, static site built with [Astro](https://astro.build). **Git is the CMS:** every
 post is a Markdown file in this repository. Write a file, commit it, push it, and it publishes
@@ -13,7 +13,7 @@ Markdown file → git commit → git push → CI build → production deploy
 ## Local development
 
 Use **Node 20 or 22 LTS** (see `.nvmrc`). CI uses Node 20. On Windows, Node 24 can crash Astro's
-post-build cleanup with a `libuv` assertion — output is still correct and CI is unaffected, but an
+post-build cleanup with a `libuv` assertion; output is still correct and CI is unaffected, but an
 LTS release avoids it locally. `npm run dev` is fine on any recent Node.
 
 ```bash
@@ -38,7 +38,7 @@ npm run blog:new
 ```
 
 It interactively asks for a title, description, tags, and publish status, then generates a correctly
-named file with valid frontmatter under `content/blog/`, dated today, with a safe slug — e.g.
+named file with valid frontmatter under `content/blog/`, dated today, with a safe slug, e.g.
 `content/blog/2026-08-24-thoughts-on-ai-agents.md`.
 
 To create a **project** entry instead:
@@ -77,15 +77,15 @@ file and field.
 
 | Field         | Type                | Required | Default | Notes                                                                        |
 | ------------- | ------------------- | :------: | ------- | ---------------------------------------------------------------------------- |
-| `title`       | string              |   yes    | —       | Post title.                                                                  |
-| `description` | string              |   yes    | —       | Summary for listings, `<meta>`, OpenGraph, and RSS.                          |
-| `date`        | date (`YYYY-MM-DD`) |   yes    | —       | Publication date. Controls ordering (newest first).                          |
-| `updated`     | date                |    no    | —       | Last-updated date; shown on the article if present.                          |
+| `title`       | string              |   yes    | -       | Post title.                                                                  |
+| `description` | string              |   yes    | -       | Summary for listings, `<meta>`, OpenGraph, and RSS.                          |
+| `date`        | date (`YYYY-MM-DD`) |   yes    | -       | Publication date. Controls ordering (newest first).                          |
+| `updated`     | date                |    no    | -       | Last-updated date; shown on the article if present.                          |
 | `tags`        | string[]            |    no    | `[]`    | Lower-cased automatically. Each generates a `/tags/<tag>` page.              |
 | `published`   | boolean             |    no    | `true`  | `false` = draft (dev-only; excluded from prod, feed, sitemap).               |
 | `featured`    | boolean             |    no    | `false` | Surfaces the post in the homepage "Featured" block.                          |
 | `slug`        | string              |    no    | derived | URL slug. If omitted, derived from the filename (leading `YYYY-MM-DD-` cut). |
-| `image`       | string              |    no    | default | Path/URL to a social share image for this post.                             |
+| `image`       | string              |    no    | default | Path/URL to a social share image for this post.                              |
 
 ### Projects (`content/projects/`)
 
@@ -94,8 +94,8 @@ Same as above, minus `image`, plus:
 | Field    | Type                                                   | Default  | Notes                          |
 | -------- | ------------------------------------------------------ | -------- | ------------------------------ |
 | `status` | `active` \| `maintained` \| `archived` \| `experiment` | `active` | Small label shown on the card. |
-| `repo`   | url                                                    | —        | Optional link to the repo.     |
-| `url`    | url                                                    | —        | Optional link to a live site.  |
+| `repo`   | url                                                    | -        | Optional link to the repo.     |
+| `url`    | url                                                    | -        | Optional link to a live site.  |
 
 ## Draft articles
 
@@ -129,7 +129,7 @@ Anything in `public/` is copied verbatim to the site root at build time. Prefer 
 6. deploy       GitHub Actions builds and deploys automatically
 ```
 
-Within a minute or two of the push, the article is live. That's the whole system — reproducible from
+Within a minute or two of the push, the article is live. That's the whole system, reproducible from
 any computer where you can clone the repo and authenticate to GitHub.
 
 ## Deployment
@@ -138,7 +138,7 @@ any computer where you can clone the repo and authenticate to GitHub.
 - **Pipeline:** `.github/workflows/deploy.yml` runs on every push to `main`: install → type-check →
   build → deploy the static `dist/` to Pages.
 - **Portability:** the build output is plain static HTML/CSS/JS, so it can be moved to Netlify,
-  Cloudflare Pages, Vercel, or any static host with no code changes — only the deploy step differs.
+  Cloudflare Pages, Vercel, or any static host with no code changes; only the deploy step differs.
 
 ### One-time setup (required)
 

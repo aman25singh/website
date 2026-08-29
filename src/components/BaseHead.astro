@@ -34,7 +34,7 @@ const {
 
 const canonical = new URL(Astro.url.pathname, site.url).href.replace(/\/$/, "") || site.url;
 const socialImage = new URL(image, site.url).href;
-const fullTitle = title === site.title ? title : `${title} — ${site.title}`;
+const fullTitle = title === site.title ? title : `${title} · ${site.title}`;
 
 // JSON-LD for articles improves rich results; harmless for readers.
 const jsonLd = article
@@ -64,10 +64,14 @@ const jsonLd = article
 <link rel="canonical" href={canonical} />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-<!-- Favicons -->
+<!-- Favicons. The SVG carries its own prefers-color-scheme rules so the mark
+     stays legible against light and dark browser chrome; the PNGs are the
+     fallback for clients that ignore SVG icons. -->
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-<link rel="icon" href="/assets/thecognitivekombuchalogo.png" sizes="any" />
-<link rel="apple-touch-icon" href="/assets/thecognitivekombuchalogo.png" />
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180" />
+<meta name="theme-color" content="#f6f1e9" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#14131a" media="(prefers-color-scheme: dark)" />
 
 <!-- Feeds -->
 <link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />

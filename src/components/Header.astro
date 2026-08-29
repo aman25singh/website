@@ -9,8 +9,11 @@ const seg = "/" + (Astro.url.pathname.split("/").filter(Boolean)[0] ?? "");
 <header class="site-header">
   <div class="header-inner wrap">
     <a href="/" class="brand">
+      <!-- Pre-sized variants: the source artwork is 1254px, far more than the
+           32px this renders at. -->
       <img
-        src="/assets/thecognitivekombuchalogo.png"
+        src="/assets/logo-32.png"
+        srcset="/assets/logo-32.png 1x, /assets/logo-64.png 2x"
         alt=""
         width="32"
         height="32"

@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 30" version="1.1" x="0px" y="0px"><title>chevron-up</title><desc>Created with Sketch.</desc><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g fill="#000000" fill-rule="nonzero"><path d="M11.2575379,7.75753788 C11.6675884,7.34748737 12.3324116,7.34748737 12.7424621,7.75753788 L18.7424621,13.7575379 C19.1525126,14.1675884 19.1525126,14.8324116 18.7424621,15.2424621 C18.3324116,15.6525126 17.6675884,15.6525126 17.2575379,15.2424621 L12,9.98492424 L6.74246212,15.2424621 C6.33241161,15.6525126 5.66758839,15.6525126 5.25753788,15.2424621 C4.84748737,14.8324116 4.84748737,14.1675884 5.25753788,13.7575379 L11.2575379,7.75753788 L11.2575379,7.75753788 Z"/></g></g><text x="0" y="39" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Denis Klyuchnikov</text><text x="0" y="44" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="The Cognitive Kombucha">
+  <style>
+    .bg{fill:#f6f1e9}.ink{stroke:#2a2725;fill:none;stroke-width:2.4}
+    .brew{fill:#6d5bb5}.bub{fill:#f6f1e9}
+    @media (prefers-color-scheme:dark){
+      .bg{fill:#14131a}.ink{stroke:#e9e6ef}.brew{fill:#b3a3ee}.bub{fill:#14131a}
+    }
+  </style>
+  <rect class="bg" width="32" height="32" rx="7"/>
+  <clipPath id="c"><circle cx="16" cy="16" r="10.6"/></clipPath>
+  <g clip-path="url(#c)">
+    <path class="brew" d="M5.4 17.2 C8.5 14.6 10.5 19 13.6 17.2 C16.7 15.4 19 19.2 22 17.4 C24 16.2 25 16.6 26.6 17.6 L26.6 27 L5.4 27 Z"/>
+    <circle class="bub" cx="12.4" cy="21" r="1.25"/>
+    <circle class="bub" cx="18.6" cy="22.6" r="0.95"/>
+  </g>
+  <circle class="ink" cx="16" cy="16" r="10.6"/>
+</svg>

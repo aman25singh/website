@@ -133,7 +133,7 @@ Start writing here.
   await writeFile(target, frontmatter, "utf8");
 
   console.log(`\n  ✓ Created content/${collection}/${filename}`);
-  console.log(`    ${published ? "Published" : "Draft"} — preview with: npm run dev\n`);
+  console.log(`    ${published ? "Published" : "Draft"}. Preview with: npm run dev\n`);
 }
 
 main().catch((err) => {
