@@ -7,11 +7,11 @@ export const site = {
   // Short tagline used in the header/footer and default meta description.
   tagline: "Notes, experiments, and small things that matter",
   description:
-    "An engineering notebook and personal publication — writing on software, systems, cloud, data, finance, and whatever I'm learning.",
+    "An engineering notebook and personal publication: writing on software, systems, cloud, data, finance, and whatever I'm learning.",
   author: "Aman Singh",
   // Canonical origin. Mirrors astro.config `site`; imported by SEO + feeds.
   url: "https://thecognitivekombucha.com",
-  // Optional social handles — leave blank to omit. Do not invent these.
+  // Optional social handles; leave blank to omit. Do not invent these.
   social: {
     github: "https://github.com/aman25singh",
     // twitter: "https://twitter.com/...",

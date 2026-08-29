@@ -7,7 +7,7 @@ import { glob } from "astro/loaders";
  * Every field below is validated by Zod at build time. If a post has a missing
  * or malformed frontmatter field (e.g. a bad date, a non-boolean `published`),
  * `astro build` and `astro check` fail with a precise error naming the file and
- * field — which is exactly the "invalid metadata fails the build" guarantee.
+ * field, which is exactly the "invalid metadata fails the build" guarantee.
  *
  * To add a field: extend the schema here, and it becomes type-safe everywhere
  * it is consumed (`entry.data.<field>` is fully typed).
@@ -49,7 +49,7 @@ const projects = defineCollection({
     .object({
       title: z.string().min(1),
       description: z.string().min(1),
-      // Rough status of the work — shown as a small label, not a progress bar.
+      // Rough status of the work, shown as a small label, not a progress bar.
       status: z.enum(["active", "maintained", "archived", "experiment"]).default("active"),
       date: z.coerce.date(),
       updated: z.coerce.date().optional(),
