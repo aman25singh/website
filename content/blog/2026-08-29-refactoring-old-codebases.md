@@ -19,12 +19,12 @@ next fancy idea without fully finishing anything meaningful.
 Recently I came to a realization that the way I was operating wasn't the best. I was mainly a
 consumer of the internet, but never a creator.
 
-Right now in life I have the luxury to afford computers, subscriptions etc, and the last couple of
-years of AI advancements gave me the confidence to restart everything from scratch. I used to build
-things very sporadically, but everything was very unorganized and chaotic. None of the things I
-built or wrote, or even my communication for that matter, ever actually delivered a message or at
-least convinced any audience. But now, with the available AI tools, I can do what I do best: dream
-and build things. The AI tools can help me out with the execution phase of that dream.
+Right now I have the time and the means to do this properly, and the last couple of years of AI
+advancements gave me the confidence to restart everything from scratch. I used to build things very
+sporadically, but everything was very unorganized and chaotic. None of the things I built or wrote,
+or even my communication for that matter, ever really landed with anyone. But now, with the
+available AI tools, I can actually finish some of what I start. They help most with the parts where
+I used to stall.
 
 The first task I picked up is to clean up all the old repositories I have built. Some of them
 aren't even version tracked lol. I have around 10 different projects which I worked on over the
