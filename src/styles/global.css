@@ -13,7 +13,7 @@
 
   --ink: #2a2725; /* primary text */
   --muted: #6f6a63; /* secondary text */
-  --faint: #9a938a; /* tertiary / metadata */
+  --faint: #70695f; /* tertiary / metadata */
   --border: #e3dbcd;
 
   --accent: #6d5bb5; /* purple/lavender from the logo */
@@ -47,7 +47,7 @@
 
   --ink: #e9e6ef;
   --muted: #a8a2b4;
-  --faint: #78737f;
+  --faint: #96909f;
   --border: #2a2833;
 
   --accent: #b3a3ee;
@@ -72,7 +72,7 @@
     --bg-code: #1a1922;
     --ink: #e9e6ef;
     --muted: #a8a2b4;
-    --faint: #78737f;
+    --faint: #96909f;
     --border: #2a2833;
     --accent: #b3a3ee;
     --accent-soft: #c7bbf3;
