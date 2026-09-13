@@ -23,7 +23,7 @@ const { title, description, date, tags } = post.data;
     <span aria-hidden="true">·</span>
     <span>{readingTime(post.body)}</span>
   </div>
-  {!compact && <p class="desc">{description}</p>}
+  <p class="desc">{description}</p>
   {
     tags.length > 0 && (
       <ul class="tags">
