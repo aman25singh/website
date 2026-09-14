@@ -84,7 +84,13 @@ const interests = [
             {projects.map((p) => (
               <li>
                 <a href={`/projects/${postSlug(p)}`}>{p.data.title}</a>
-                <span class="proj-desc">{p.data.description}</span>
+                {p.data.tags.length > 0 && (
+                  <ul class="proj-tags" aria-label={`${p.data.title} topics`}>
+                    {p.data.tags.map((tag) => (
+                      <li>#{tag}</li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
@@ -168,11 +174,22 @@ const interests = [
   .proj-list a:hover {
     color: var(--accent);
   }
-  .proj-desc {
-    display: block;
-    color: var(--muted);
-    font-size: 0.95rem;
-    margin-top: 2px;
+  .proj-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0.45rem 0 0;
+    padding: 0;
+  }
+  .proj-tags li {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--faint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 8px;
   }
   code {
     background: var(--bg-soft);
