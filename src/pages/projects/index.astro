@@ -35,7 +35,7 @@ const projects = await getProjects();
                 </a>
                 <span class:list={["status", p.data.status]}>{p.data.status}</span>
               </div>
-              <div class="meta">
+              <div class="proj-meta">
                 <time datetime={isoDate(p.data.date)}>{formatDate(p.data.date)}</time>
                 {p.data.repo && (
                   <>
@@ -50,8 +50,9 @@ const projects = await getProjects();
                   </>
                 )}
               </div>
+              <p class="proj-desc">{p.data.description}</p>
               {p.data.tags.length > 0 && (
-                <ul class="tags" aria-label={`${p.data.title} topics`}>
+                <ul class="proj-tags" aria-label={`${p.data.title} topics`}>
                   {p.data.tags.map((tag) => (
                     <li>#{tag}</li>
                   ))}
@@ -114,7 +115,7 @@ const projects = await getProjects();
     color: var(--accent);
     border-color: var(--accent);
   }
-  .meta {
+  .proj-meta {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -122,14 +123,19 @@ const projects = await getProjects();
     font-size: 12.5px;
     color: var(--faint);
   }
-  .meta a {
+  .proj-meta a {
     color: var(--muted);
     text-decoration: none;
   }
-  .meta a:hover {
+  .proj-meta a:hover {
     color: var(--accent);
   }
-  .tags {
+  .proj-desc {
+    margin: 0.5rem 0 0;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+  .proj-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -137,7 +143,7 @@ const projects = await getProjects();
     margin: 0.8rem 0 0;
     padding: 0;
   }
-  .tags li {
+  .proj-tags li {
     font-family: var(--font-mono);
     font-size: 12px;
     line-height: 1.4;
