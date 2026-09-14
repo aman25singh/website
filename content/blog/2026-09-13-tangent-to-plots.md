@@ -77,4 +77,4 @@ I'm going throught the project again in 2026, mostly out of curiosity. After spe
 
 Ideally, it should be simple enough to host for little to no money, work directly in a browser, and still keep enough of the original data collection idea that I can eventually answer some of those questions. But I'm trying very hard not to turn that into another giant project.Salvage the code. Make the game work. Put it on the web. Call it a day. lol.
 
-Check out the codebase here : [text](https://github.com/aman25singh/math-drill)
+Check out the codebase here : [GITHUB](https://github.com/aman25singh/math-drill)
