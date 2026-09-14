@@ -6,6 +6,8 @@ date: "2026-09-13"
 updated: "2026-09-13"
 tags:
   - software
+  - data-visualization
+  - mental-math
   - plotting-and-charting
   - goofing-around
 published: true
@@ -45,7 +47,7 @@ A score like: `42 correct answers` doesn't tell me very much. But a dataset cont
 * the expected answer,
 * whether I answered correctly,
 * how long I took,
-* and where in the session the question appeared
+* and when the question was answered, so its position in the session can be reconstructed
 
 could tell me quite a bit.
 
@@ -77,4 +79,4 @@ I'm going throught the project again in 2026, mostly out of curiosity. After spe
 
 Ideally, it should be simple enough to host for little to no money, work directly in a browser, and still keep enough of the original data collection idea that I can eventually answer some of those questions. But I'm trying very hard not to turn that into another giant project.Salvage the code. Make the game work. Put it on the web. Call it a day. lol.
 
-Check out the codebase here : [GITHUB](https://github.com/aman25singh/math-drill)
+Check out the codebase here: [Math Drill repository](https://github.com/aman25singh/math-drill)
