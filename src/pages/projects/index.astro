@@ -35,7 +35,6 @@ const projects = await getProjects();
                 </a>
                 <span class:list={["status", p.data.status]}>{p.data.status}</span>
               </div>
-              <p class="desc">{p.data.description}</p>
               <div class="meta">
                 <time datetime={isoDate(p.data.date)}>{formatDate(p.data.date)}</time>
                 {p.data.repo && (
@@ -51,6 +50,13 @@ const projects = await getProjects();
                   </>
                 )}
               </div>
+              {p.data.tags.length > 0 && (
+                <ul class="tags" aria-label={`${p.data.title} topics`}>
+                  {p.data.tags.map((tag) => (
+                    <li>#{tag}</li>
+                  ))}
+                </ul>
+              )}
             </article>
           ))}
         </section>
@@ -108,11 +114,6 @@ const projects = await getProjects();
     color: var(--accent);
     border-color: var(--accent);
   }
-  .desc {
-    margin: 0.5rem 0 0.6rem;
-    color: var(--muted);
-    max-width: 60ch;
-  }
   .meta {
     display: flex;
     align-items: center;
@@ -127,6 +128,23 @@ const projects = await getProjects();
   }
   .meta a:hover {
     color: var(--accent);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0.8rem 0 0;
+    padding: 0;
+  }
+  .tags li {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 9px;
   }
   code {
     background: var(--bg-soft);
