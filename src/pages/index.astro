@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
 import { getPosts, getFeaturedPosts, getProjects, postSlug } from "../lib/content";
 import { site } from "../lib/site";
+import { formatDate, isoDate } from "../lib/format";
 
 const featured = await getFeaturedPosts();
 const featuredIds = new Set(featured.map((p) => p.id));
@@ -84,6 +85,10 @@ const interests = [
             {projects.map((p) => (
               <li>
                 <a href={`/projects/${postSlug(p)}`}>{p.data.title}</a>
+                <time class="proj-meta" datetime={isoDate(p.data.date)}>
+                  {formatDate(p.data.date)}
+                </time>
+                <span class="proj-desc">{p.data.description}</span>
                 {p.data.tags.length > 0 && (
                   <ul class="proj-tags" aria-label={`${p.data.title} topics`}>
                     {p.data.tags.map((tag) => (
@@ -173,6 +178,21 @@ const interests = [
   }
   .proj-list a:hover {
     color: var(--accent);
+  }
+  .proj-meta {
+    display: block;
+    margin-top: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--faint);
+  }
+  .proj-desc {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    max-width: 60ch;
   }
   .proj-tags {
     display: flex;
