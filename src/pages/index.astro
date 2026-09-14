@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Dots from "../components/Dots.astro";
 import PostCard from "../components/PostCard.astro";
 import { getPosts, getFeaturedPosts, getProjects, postSlug } from "../lib/content";
 import { site } from "../lib/site";
@@ -22,8 +21,6 @@ const interests = [
 ---
 
 <BaseLayout title={site.title} description={site.description}>
-  <Dots />
-
   <section class="intro">
     <div class="prose-wrap">
       <p class="eyebrow">{site.tagline}</p>
