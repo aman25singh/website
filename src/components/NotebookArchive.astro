@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostCard from "./PostCard.astro";
+import { getEntries, getTags } from "../lib/content";
+
+interface Props {
+  kind?: "all" | "notes" | "projects";
+}
+const { kind = "all" } = Astro.props;
+const entries = (await getEntries()).filter(
+  (entry) => kind === "all" || entry.collection === (kind === "notes" ? "blog" : "projects"),
+);
+const tags = await getTags();
+const filters = [
+  { key: "all", label: "All", href: "/notebook" },
+  { key: "notes", label: "Notes", href: "/writing" },
+  { key: "projects", label: "Projects", href: "/projects" },
+];
+---
+
+<BaseLayout
+  title={kind === "all" ? "Notebook" : `${kind === "notes" ? "Notes" : "Projects"} — Notebook`}
+  description="Ideas, things built, and lessons learned. Notes and projects from an engineering notebook."
+>
+  <div class="prose-wrap page">
+    <header class="page-head">
+      <p class="eyebrow">Notes &amp; projects</p>
+      <h1>Notebook</h1>
+      <p class="muted">
+        Ideas, things built, and lessons learned. A record of what I'm figuring out.
+      </p>
+    </header>
+    <nav class="filters" aria-label="Filter notebook">
+      {filters.map((filter) => (
+        <a href={filter.href} aria-current={kind === filter.key ? "page" : undefined}>
+          {filter.label}
+        </a>
+      ))}
+    </nav>
+    <p class="entry-count muted">
+      {entries.length} {entries.length === 1 ? "entry" : "entries"}, newest first.
+    </p>
+    <div class="list">
+      {entries.length ? (
+        entries.map((post) => <PostCard post={post} />)
+      ) : (
+        <p class="muted">Nothing here yet. Check back soon.</p>
+      )}
+    </div>
+    {tags.length > 0 && (
+      <nav class="topics" aria-label="Browse notebook by topic">
+        <p class="eyebrow">Explore by topic</p>
+        <div>
+          {tags.map(({ tag }) => (
+            <a href={`/tags/${tag}`}>#{tag}</a>
+          ))}
+        </div>
+      </nav>
+    )}
+  </div>
+</BaseLayout>
+<style>
+  .filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+  .filters a {
+    color: var(--muted);
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 0.35rem 0.9rem;
+  }
+  .filters a[aria-current] {
+    color: var(--ink);
+    background: var(--bg-soft);
+    font-weight: 600;
+  }
+  .entry-count {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    margin-bottom: 0;
+  }
+  .topics {
+    margin-top: 2.5rem;
+  }
+  .topics div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+  .topics a {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-decoration: none;
+  }
+</style>

@@ -9,7 +9,7 @@ export const site = {
   description:
     "An engineering notebook and personal publication: writing on software, systems, cloud, data, finance, and whatever I'm learning.",
   author: "Aman Singh",
-  // Canonical origin. Mirrors astro.config `site`; imported by SEO + feeds.
+  // Canonical origin, shared with Astro config, SEO, feeds, and validation.
   url: "https://thecognitivekombucha.com",
   // Optional social handles; leave blank to omit. Do not invent these.
   social: {
@@ -19,8 +19,7 @@ export const site = {
   // The @handle used for Twitter card attribution, if any.
   twitterHandle: "",
   navigation: [
-    { label: "Writing", href: "/writing" },
-    { label: "Projects", href: "/projects" },
+    { label: "Notebook", href: "/notebook" },
     { label: "About", href: "/about" },
   ],
 } as const;

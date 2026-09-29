@@ -9,20 +9,18 @@ interface Props {
 const toc = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
-{
-  toc.length >= 3 && (
-    <nav class="toc" aria-label="Table of contents">
-      <p class="toc-title">On this page</p>
-      <ul>
-        {toc.map((h) => (
-          <li class:list={[`depth-${h.depth}`]}>
-            <a href={`#${h.slug}`}>{h.text}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  )
-}
+{toc.length >= 3 && (
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc-title">On this page</p>
+    <ul>
+      {toc.map((h) => (
+        <li class:list={[`depth-${h.depth}`]}>
+          <a href={`#${h.slug}`}>{h.text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
 
 <style>
   .toc {

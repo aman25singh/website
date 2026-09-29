@@ -11,14 +11,16 @@
       d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"
       stroke="currentColor"
       stroke-width="1.6"
-      stroke-linecap="round"></path>
+      stroke-linecap="round"
+    ></path>
   </svg>
   <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path
       d="M20 14.2A8 8 0 1 1 9.8 4 6.2 6.2 0 0 0 20 14.2Z"
       stroke="currentColor"
       stroke-width="1.6"
-      stroke-linejoin="round"></path>
+      stroke-linejoin="round"
+    ></path>
   </svg>
 </button>
 
@@ -46,19 +48,36 @@
     grid-area: 1 / 1;
   }
   /* Show the icon of the theme you'd switch TO. */
-  .icon-moon {
+  .icon-sun {
     display: none;
   }
   :root[data-theme="dark"] .icon-sun {
-    display: none;
+    display: block;
   }
   :root[data-theme="dark"] .icon-moon {
-    display: block;
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .icon-sun {
+      display: block;
+    }
+    :root:not([data-theme="light"]) .icon-moon {
+      display: none;
+    }
   }
 </style>
 
 <script>
   const btn = document.getElementById("theme-toggle");
+  const preference = matchMedia("(prefers-color-scheme: dark)");
+  const updateLabel = () => {
+    const dark =
+      (document.documentElement.getAttribute("data-theme") ??
+        (preference.matches ? "dark" : "light")) === "dark";
+    btn?.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+  };
+  updateLabel();
+  preference.addEventListener("change", updateLabel);
   btn?.addEventListener("click", () => {
     const root = document.documentElement;
     const current =
@@ -66,6 +85,7 @@
       (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     const next = current === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
+    updateLabel();
     try {
       localStorage.setItem("theme", next);
     } catch {}

@@ -5,36 +5,31 @@ import { getTags } from "../../lib/content";
 const tags = await getTags();
 ---
 
-<BaseLayout title="Tags" description="Browse writing by topic.">
+<BaseLayout title="Tags" description="Browse notes and projects by topic.">
   <div class="prose-wrap page">
     <header class="page-head">
       <p class="eyebrow">Index</p>
       <h1>Tags</h1>
-      <p class="muted">Browse writing by topic.</p>
+      <p class="muted">Browse notes and projects by topic.</p>
     </header>
 
-    {
-      tags.length === 0 ? (
-        <p class="muted">No tags yet.</p>
-      ) : (
-        <ul class="cloud">
-          {tags.map((t) => (
-            <li>
-              <a href={`/tags/${t.tag}`}>
-                #{t.tag} <span>{t.count}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      )
-    }
+    {tags.length === 0 ? (
+      <p class="muted">No tags yet.</p>
+    ) : (
+      <ul class="cloud">
+        {tags.map((t) => (
+          <li>
+            <a href={`/tags/${t.tag}`}>
+              #{t.tag} <span>{t.count}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
   </div>
 </BaseLayout>
 
 <style>
-  .page {
-    padding-top: 2.5rem;
-  }
   .page-head h1 {
     font-size: clamp(2rem, 5vw, 2.8rem);
     margin: 0.4rem 0 0.6rem;
