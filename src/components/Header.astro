@@ -4,32 +4,31 @@ import ThemeToggle from "./ThemeToggle.astro";
 
 // Active-section highlighting: match the first path segment.
 const seg = "/" + (Astro.url.pathname.split("/").filter(Boolean)[0] ?? "");
+const section = ["/writing", "/projects", "/tags"].includes(seg) ? "/notebook" : seg;
 ---
 
 <header class="site-header">
   <div class="header-inner wrap">
-    <a href="/" class="brand">
-      <!-- Pre-sized variants: the source artwork is 1254px, far more than the
-           32px this renders at. -->
-      <img
-        src="/assets/logo-32.png"
-        srcset="/assets/logo-32.png 1x, /assets/logo-64.png 2x"
-        alt=""
-        width="32"
-        height="32"
-        class="brand-logo"
-      />
+    <a href="/" class="brand" aria-label={`${site.title} — home`}>
+      <img src="/assets/logo.webp" alt="" width="32" height="32" class="brand-logo" />
       <span>{site.title}</span>
     </a>
 
     <nav class="nav" aria-label="Primary">
-      {
-        site.navigation.map((item) => (
-          <a href={item.href} aria-current={seg === item.href ? "page" : undefined}>
-            {item.label}
-          </a>
-        ))
-      }
+      {site.navigation.map((item) => (
+        <a
+          href={item.href}
+          aria-current={
+            section === item.href
+              ? Astro.url.pathname.replace(/\/$/, "") === item.href
+                ? "page"
+                : "location"
+              : undefined
+          }
+        >
+          {item.label}
+        </a>
+      ))}
       <ThemeToggle />
     </nav>
   </div>
@@ -76,7 +75,7 @@ const seg = "/" + (Astro.url.pathname.split("/").filter(Boolean)[0] ?? "");
     transition: color 0.2s ease;
   }
   .nav a:hover,
-  .nav a[aria-current="page"] {
+  .nav a[aria-current] {
     color: var(--ink);
   }
   @media (max-width: 560px) {

@@ -1,13 +1,14 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import mdx from "@astrojs/mdx";
+import { unified } from "@astrojs/markdown-remark";
 import sitemap from "@astrojs/sitemap";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import { site } from "./src/lib/site.ts";
 
 // The canonical production origin. Used for canonical URLs, sitemap, RSS, and
 // OpenGraph absolute URLs. Change this single value if the domain ever moves.
-const SITE = "https://thecognitivekombucha.com";
+const SITE = site.url;
 
 /**
  * Wrap every Markdown <table> in a horizontally-scrollable container so wide
@@ -39,13 +40,12 @@ function rehypeResponsiveTables() {
 
 // https://astro.build/config
 export default defineConfig({
+  compressHTML: true,
   site: SITE,
-  // Optional build-output override. Handy on Windows, where Node 24 can hit a
-  // libuv crash in Astro's post-build empty-dir cleanup (harmless to output, and
-  // absent on the Linux CI runner / Node 20 LTS). CI leaves this unset → ./dist.
+  // Optional output directory for isolated local verification.
   outDir: process.env.ASTRO_OUT_DIR || undefined,
   trailingSlash: "ignore",
-  integrations: [mdx(), sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.endsWith("/404/") && !page.endsWith("/404") })],
   markdown: {
     // Shiki ships with Astro, so no client JS is needed; highlighting happens at build time.
     shikiConfig: {
@@ -57,16 +57,18 @@ export default defineConfig({
     },
     // Slugged heading ids + a quiet anchor link on each heading (for deep links
     // and the table of contents).
-    rehypePlugins: [
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: "wrap",
-          properties: { className: ["heading-anchor"] },
-        },
+    processor: unified({
+      rehypePlugins: [
+        rehypeSlug,
+        [
+          rehypeAutolinkHeadings,
+          {
+            behavior: "wrap",
+            properties: { className: ["heading-anchor"] },
+          },
+        ],
+        rehypeResponsiveTables,
       ],
-      rehypeResponsiveTables,
-    ],
+    }),
   },
 });

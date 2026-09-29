@@ -18,7 +18,7 @@ slug: "tangent-to-plots"
 
 ## The Origin
 
-Somewhere around early 2024, I was looking into quant/trading as a possible career. I bought some books, signed up for courses, started learning, and—you know how the circle goes.
+Somewhere around early 2024, I was looking into quant/trading as a possible career. I bought some books, signed up for courses, started learning, and you know how the circle goes.
 
 Around that time, I came across a company called Akuna Capital, headquartered in Chicago. If I remember correctly, they also have offices in Sydney and Singapore. Akuna Capital is a proprietary trading firm whose main specialty is options market making. At the time, I didn't fully understand what options were or how trading firms actually operated. Not that I know everything now, but I definitely have a better understanding than I did then.
 

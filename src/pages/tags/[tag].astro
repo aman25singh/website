@@ -17,25 +17,26 @@ export const getStaticPaths = (async () => {
 const { tag, posts } = Astro.props;
 ---
 
-<BaseLayout title={`#${tag}`} description={`Writing tagged ${tag}.`}>
+<BaseLayout title={`#${tag}`} description={`Notebook entries tagged ${tag}.`}>
   <div class="prose-wrap page">
     <header class="page-head">
-      <a class="back" href="/tags">← All tags</a>
+      <a class="back" href="/tags">
+        ← All tags
+      </a>
       <h1>#{tag}</h1>
       <p class="muted">
-        {posts.length} post{posts.length === 1 ? "" : "s"} tagged <strong>{tag}</strong>.
+        {posts.length} {posts.length === 1 ? "entry" : "entries"} tagged <strong>{tag}</strong>.
       </p>
     </header>
     <section class="list">
-      {posts.map((post) => <PostCard post={post} />)}
+      {posts.map((post) => (
+        <PostCard post={post} />
+      ))}
     </section>
   </div>
 </BaseLayout>
 
 <style>
-  .page {
-    padding-top: 2.5rem;
-  }
   .back {
     font-family: var(--font-mono);
     font-size: 13px;

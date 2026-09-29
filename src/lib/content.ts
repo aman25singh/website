@@ -1,7 +1,9 @@
 import { getCollection, type CollectionEntry } from "astro:content";
+import { deriveSlug } from "./content-rules.mjs";
 
 export type BlogPost = CollectionEntry<"blog">;
 export type Project = CollectionEntry<"projects">;
+export type Entry = BlogPost | Project;
 
 /**
  * Drafts (`published: false`) are visible while developing so you can preview
@@ -11,8 +13,7 @@ const includeDrafts = import.meta.env.DEV;
 
 /** Strip a leading `YYYY-MM-DD-` date prefix and any folder from a glob id. */
 function idToSlug(id: string): string {
-  const base = id.split("/").pop() ?? id;
-  return base.replace(/^\d{4}-\d{2}-\d{2}-/, "");
+  return deriveSlug(id);
 }
 
 /** Canonical URL slug for an entry: explicit frontmatter `slug` wins. */
@@ -37,11 +38,6 @@ export async function getPosts(): Promise<BlogPost[]> {
   return posts.sort(byDateDesc);
 }
 
-/** Featured posts (falls back to nothing if none are flagged). */
-export async function getFeaturedPosts(): Promise<BlogPost[]> {
-  return (await getPosts()).filter((p) => p.data.featured);
-}
-
 /** All publishable projects, newest first. */
 export async function getProjects(): Promise<Project[]> {
   const projects = await getCollection("projects", ({ data }) => includeDrafts || data.published);
@@ -50,9 +46,19 @@ export async function getProjects(): Promise<Project[]> {
 
 export type TagCount = { tag: string; count: number };
 
-/** Distinct tags across published posts with their post counts, most first. */
+export function entryUrl(entry: Entry): string {
+  return `/${entry.collection === "blog" ? "writing" : "projects"}/${postSlug(entry)}`;
+}
+
+export async function getEntries(): Promise<Entry[]> {
+  return [...(await getPosts()), ...(await getProjects())].sort(
+    (a, b) => byDateDesc(a, b) || entryUrl(a).localeCompare(entryUrl(b)),
+  );
+}
+
+/** Distinct tags across notebook entries with their counts, most first. */
 export async function getTags(): Promise<TagCount[]> {
-  const posts = await getPosts();
+  const posts = await getEntries();
   const counts = new Map<string, number>();
   for (const post of posts) {
     for (const t of post.data.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
@@ -62,9 +68,9 @@ export async function getTags(): Promise<TagCount[]> {
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
 }
 
-/** Posts carrying a given tag, newest first. */
-export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
-  return (await getPosts()).filter((p) => p.data.tags.includes(tag));
+/** Notes and projects carrying a given tag, newest first. */
+export async function getPostsByTag(tag: string): Promise<Entry[]> {
+  return (await getEntries()).filter((p) => p.data.tags.includes(tag));
 }
 
 export type Adjacent = { post: BlogPost; slug: string } | null;

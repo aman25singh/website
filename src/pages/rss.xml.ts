@@ -1,10 +1,10 @@
 import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
-import { getPosts, postSlug } from "../lib/content";
+import { getEntries, entryUrl } from "../lib/content";
 import { site } from "../lib/site";
 
 export async function GET(context: APIContext) {
-  const posts = await getPosts();
+  const posts = await getEntries();
   return rss({
     title: site.title,
     description: site.description,
@@ -14,7 +14,7 @@ export async function GET(context: APIContext) {
       title: post.data.title,
       description: post.data.description,
       pubDate: post.data.date,
-      link: `/writing/${postSlug(post)}`,
+      link: entryUrl(post),
       categories: post.data.tags,
     })),
     customData: `<language>en-us</language>`,

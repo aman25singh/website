@@ -9,28 +9,26 @@ interface Props {
 const { prev, next } = Astro.props;
 ---
 
-{
-  (prev || next) && (
-    <nav class="post-nav" aria-label="Adjacent posts">
-      <div class="col">
-        {next && (
-          <a href={`/writing/${next.slug}`}>
-            <span class="dir">← Newer</span>
-            <span class="t">{next.post.data.title}</span>
-          </a>
-        )}
-      </div>
-      <div class="col end">
-        {prev && (
-          <a href={`/writing/${prev.slug}`}>
-            <span class="dir">Older →</span>
-            <span class="t">{prev.post.data.title}</span>
-          </a>
-        )}
-      </div>
-    </nav>
-  )
-}
+{(prev || next) && (
+  <nav class="post-nav" aria-label="Adjacent posts">
+    <div class="col">
+      {next && (
+        <a href={`/writing/${next.slug}`}>
+          <span class="dir">← Newer</span>
+          <span class="t">{next.post.data.title}</span>
+        </a>
+      )}
+    </div>
+    <div class="col end">
+      {prev && (
+        <a href={`/writing/${prev.slug}`}>
+          <span class="dir">Older →</span>
+          <span class="t">{prev.post.data.title}</span>
+        </a>
+      )}
+    </div>
+  </nav>
+)}
 
 <style>
   .post-nav {
