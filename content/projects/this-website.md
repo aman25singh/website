@@ -6,8 +6,8 @@ date: "2026-08-24"
 tags:
   - web
   - astro
-published: true
-featured: true
+published: false
+featured: false
 slug: "this-website"
 repo: "https://github.com/aman25singh/website"
 url: "https://thecognitivekombucha.com"
