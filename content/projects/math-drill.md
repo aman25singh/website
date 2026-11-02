@@ -11,7 +11,7 @@ tags:
   - data-visualization
   - mental-math
   - plotting-and-charting
-published: true
+published: false
 featured: false
 slug: "math-drill"
 repo: "https://github.com/aman25singh/math-drill"
