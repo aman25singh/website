@@ -1,5 +1,13 @@
 export const segmentPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
+export function isPublished(data) {
+  return data.published === true && data.draft !== true;
+}
+
+export function filterFeatured(entries) {
+  return entries.filter((entry) => entry.data.featured === true);
+}
+
 export function deriveSlug(id) {
   return id
     .split("/")

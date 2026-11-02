@@ -2,6 +2,7 @@
 import { render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
 import { getPosts, postSlug, readingTime, getAdjacentPosts } from "../../lib/content";
+import { isPublished } from "../../lib/content-rules.mjs";
 import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths = (async () => {
@@ -25,7 +26,7 @@ const d = post.data;
   updated={d.updated}
   tags={d.tags}
   image={d.image}
-  isDraft={!d.published}
+  isDraft={!isPublished(d)}
   readingTime={readingTime(post.body)}
   headings={headings}
   prev={prev}

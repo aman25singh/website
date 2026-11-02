@@ -2,7 +2,12 @@ import { readdir, readFile } from "node:fs/promises";
 import { resolve, relative, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { parse } from "yaml";
-import { deriveSlug, segmentPattern, hasPlaceholder } from "../src/lib/content-rules.mjs";
+import {
+  deriveSlug,
+  segmentPattern,
+  hasPlaceholder,
+  isPublished,
+} from "../src/lib/content-rules.mjs";
 
 export async function readEntries(root = process.cwd()) {
   const entries = [];
@@ -42,12 +47,16 @@ export function validateEntries(entries) {
   for (const entry of entries) {
     const slug = entry.data.slug ?? deriveSlug(entry.id);
     const route = `/${entry.collection === "blog" ? "writing" : "projects"}/${slug}`;
+    for (const field of ["featured", "published", "draft"]) {
+      if (entry.data[field] !== undefined && typeof entry.data[field] !== "boolean")
+        errors.push(`${entry.file}: ${field} must be a boolean`);
+    }
     if (typeof slug !== "string" || !segmentPattern.test(slug))
       errors.push(`${entry.file}: invalid URL slug ${JSON.stringify(slug)}`);
     if (routes.has(route))
       errors.push(`${entry.file}: duplicate route ${route}; already used by ${routes.get(route)}`);
     routes.set(route, entry.file);
-    if (entry.data.published === true && hasPlaceholder(entry.body))
+    if (isPublished(entry.data) && hasPlaceholder(entry.body))
       errors.push(`${entry.file}: published entry contains unfinished placeholder text`);
     if (entry.data.updated && new Date(entry.data.updated) < new Date(entry.data.date))
       errors.push(`${entry.file}: updated date precedes publication date`);

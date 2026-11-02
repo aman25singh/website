@@ -17,9 +17,10 @@ const fields = {
     .array(tag)
     .default([])
     .transform((tags) => [...new Set(tags)]),
-  // Publishing is deliberate; omitted flags remain drafts.
+  // Publishing is deliberate; omitted flags remain unpublished.
   published: z.boolean().default(false),
   featured: z.boolean().default(false),
+  draft: z.boolean().default(false),
   slug: segment.optional(),
 };
 const blog = defineCollection({
