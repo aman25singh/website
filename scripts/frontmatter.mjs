@@ -7,6 +7,7 @@ export function createEntry({
   tags = [],
   slug: inputSlug,
   published = false,
+  draft = !published,
   project = false,
   status = "active",
   date = new Date().toISOString().slice(0, 10),
@@ -27,6 +28,7 @@ export function createEntry({
     tags: normalizedTags,
     published,
     featured: false,
+    draft,
     slug,
     ...(project ? { status } : {}),
   };

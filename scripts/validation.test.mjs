@@ -4,7 +4,7 @@ import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, dirname, resolve } from "node:path";
 import { parse } from "yaml";
-import { scriptJson } from "../src/lib/content-rules.mjs";
+import { filterFeatured, isPublished, scriptJson } from "../src/lib/content-rules.mjs";
 import { createEntry } from "./frontmatter.mjs";
 import { validateEntries } from "./content-check.mjs";
 import { validateOutput } from "./output-check.mjs";
@@ -17,11 +17,30 @@ test("frontmatter preserves quotes, Windows paths and string tags", () => {
   assert.equal(data.description, title);
   assert.deepEqual(data.tags, ["true", "null"]);
   assert.equal(data.published, false);
+  assert.equal(data.featured, false);
+  assert.equal(data.draft, true);
   assert.throws(() => createEntry({ title: "hello", description: "" }));
   assert.throws(() => createEntry({ title: "!!!", description: "summary" }));
   assert.throws(() =>
     createEntry({ title: "test", description: "summary", project: true, status: "wrong" }),
   );
+});
+
+test("publishing, draft, and featured flags are independent", () => {
+  const entries = [
+    { data: { published: true, draft: false, featured: true } },
+    { data: { published: true, draft: false, featured: false } },
+    { data: { published: false, draft: false, featured: true } },
+    { data: { published: true, draft: true, featured: true } },
+  ];
+
+  assert.deepEqual(
+    entries.map(({ data }) => isPublished(data)),
+    [true, true, false, false],
+  );
+  assert.deepEqual(filterFeatured(entries), [entries[0], entries[2], entries[3]]);
+  assert.equal(isPublished({ published: true }), true);
+  assert.equal(isPublished({ published: true, draft: true }), false);
 });
 
 test("JSON-LD cannot close its script element", () => {
@@ -54,6 +73,20 @@ test("routes collide after date/folder stripping and published placeholders fail
   assert.ok(errors.some((error) => error.includes("b.md: published")));
 });
 
+test("content flags accept omitted defaults and reject non-boolean values", () => {
+  const base = {
+    file: "entry.md",
+    id: "entry.md",
+    collection: "blog",
+    body: "A finished entry.",
+  };
+  assert.deepEqual(validateEntries([{ ...base, data: {} }]), []);
+  for (const field of ["featured", "published", "draft"]) {
+    const errors = validateEntries([{ ...base, data: { [field]: "true" } }]);
+    assert.ok(errors.some((error) => error.includes(`${field} must be a boolean`)));
+  }
+});
+
 test("production validation catches missing OG assets, fragments, and leaked drafts", async () => {
   const root = await mkdtemp(join(tmpdir(), "notebook-validation-"));
   try {
@@ -75,6 +108,49 @@ test("production validation catches missing OG assets, fragments, and leaked dra
   } finally {
     assert.equal(dirname(resolve(root)), resolve(tmpdir()));
     assert.ok(root.includes("notebook-validation-"));
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("production routes follow publishing and draft flags, not featured status", async () => {
+  const root = await mkdtemp(join(tmpdir(), "notebook-publishing-"));
+  try {
+    const entries = [
+      {
+        file: "featured.md",
+        collection: "blog",
+        id: "featured.md",
+        data: { published: true, featured: true },
+      },
+      {
+        file: "unfeatured.md",
+        collection: "blog",
+        id: "unfeatured.md",
+        data: { published: true, featured: false },
+      },
+      {
+        file: "unpublished-featured.md",
+        collection: "blog",
+        id: "unpublished-featured.md",
+        data: { published: false, featured: true },
+      },
+      {
+        file: "draft.md",
+        collection: "blog",
+        id: "draft.md",
+        data: { published: true, draft: true, featured: true },
+      },
+    ];
+    for (const slug of ["featured", "unfeatured"]) {
+      const directory = join(root, "writing", slug);
+      await mkdir(directory, { recursive: true });
+      await writeFile(join(directory, "index.html"), `<h1>${slug}</h1>`);
+    }
+
+    assert.deepEqual(await validateOutput(root, entries), []);
+  } finally {
+    assert.equal(dirname(resolve(root)), resolve(tmpdir()));
+    assert.ok(root.includes("notebook-publishing-"));
     await rm(root, { recursive: true, force: true });
   }
 });

@@ -3,7 +3,7 @@ import { resolve, join, relative } from "node:path";
 import { pathToFileURL } from "node:url";
 import { parse } from "parse5";
 import { site } from "../src/lib/site.ts";
-import { deriveSlug, hasPlaceholder } from "../src/lib/content-rules.mjs";
+import { deriveSlug, hasPlaceholder, isPublished } from "../src/lib/content-rules.mjs";
 import { readEntries } from "./content-check.mjs";
 
 function nodes(tree) {
@@ -115,14 +115,11 @@ export async function validateOutput(root, entries = [], origin = site.url) {
   for (const entry of entries) {
     const route = `/${entry.collection === "blog" ? "writing" : "projects"}/${entry.data.slug ?? deriveSlug(entry.id)}`;
     const generated = await isFile(join(root, route.slice(1), "index.html"));
-    if (
-      entry.data.published !== true &&
-      (generated ||
-        syndication.includes(`${origin}${route}<`) ||
-        syndication.includes(`${origin}${route}/<`))
-    )
+    const syndicated =
+      syndication.includes(`${origin}${route}<`) || syndication.includes(`${origin}${route}/<`);
+    if (!isPublished(entry.data) && (generated || syndicated))
       errors.push(`${entry.file}: draft exposed at ${route}`);
-    if (entry.data.published === true && !generated)
+    if (isPublished(entry.data) && !generated)
       errors.push(`${entry.file}: published route missing: ${route}`);
   }
   return errors;

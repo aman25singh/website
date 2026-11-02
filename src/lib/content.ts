@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { deriveSlug } from "./content-rules.mjs";
+import { deriveSlug, filterFeatured, isPublished } from "./content-rules.mjs";
 
 export type BlogPost = CollectionEntry<"blog">;
 export type Project = CollectionEntry<"projects">;
@@ -34,14 +34,22 @@ function byDateDesc(a: { data: { date: Date } }, b: { data: { date: Date } }): n
 
 /** All publishable blog posts, newest first. */
 export async function getPosts(): Promise<BlogPost[]> {
-  const posts = await getCollection("blog", ({ data }) => includeDrafts || data.published);
+  const posts = await getCollection("blog", ({ data }) => includeDrafts || isPublished(data));
   return posts.sort(byDateDesc);
 }
 
 /** All publishable projects, newest first. */
 export async function getProjects(): Promise<Project[]> {
-  const projects = await getCollection("projects", ({ data }) => includeDrafts || data.published);
+  const projects = await getCollection(
+    "projects",
+    ({ data }) => includeDrafts || isPublished(data),
+  );
   return projects.sort(byDateDesc);
+}
+
+/** Featured posts among the entries visible in this environment. */
+export async function getFeaturedPosts(): Promise<BlogPost[]> {
+  return filterFeatured(await getPosts());
 }
 
 export type TagCount = { tag: string; count: number };

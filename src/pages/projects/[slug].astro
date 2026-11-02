@@ -2,6 +2,7 @@
 import { render } from "astro:content";
 import PostLayout from "../../layouts/PostLayout.astro";
 import { getProjects, postSlug } from "../../lib/content";
+import { isPublished } from "../../lib/content-rules.mjs";
 import type { GetStaticPaths } from "astro";
 export const getStaticPaths = (async () =>
   (await getProjects()).map((project) => ({
@@ -20,7 +21,7 @@ const d = project.data;
   updated={d.updated}
   tags={d.tags}
   headings={headings}
-  isDraft={!d.published}
+  isDraft={!isPublished(d)}
   project={{ status: d.status, repo: d.repo, url: d.url }}
 >
   <Content />
