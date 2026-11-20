@@ -1,6 +1,6 @@
 ---
 title: "This Website"
-description: "A statically-generated personal site and engineering notebook where Git is the CMS."
+description: "A statically-generated personal site where Git is the CMS."
 status: "active"
 date: "2026-08-24"
 tags:

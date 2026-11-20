@@ -1,6 +1,6 @@
 # The Cognitive Kombucha
 
-The personal engineering notebook of Aman: notes, projects, and things I am learning.
+Ideas, left to ferment. The personal site of Aman: notes, projects, and things I am learning.
 
 It is a static Astro site. Content lives in Markdown, Git is the CMS, and GitHub Pages hosts the
 generated site at [thecognitivekombucha.com](https://thecognitivekombucha.com).

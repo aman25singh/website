@@ -7,7 +7,7 @@ export const site = {
   // Short tagline used in the header/footer and default meta description.
   tagline: "Notes, experiments, and small things that matter",
   description:
-    "An engineering notebook and personal publication: writing on software, systems, cloud, data, finance, and whatever I'm learning.",
+    "Ideas, left to ferment: writing on software, systems, cloud, data, finance, life, and whatever I'm learning.",
   author: "Aman",
   // Canonical origin, shared with Astro config, SEO, feeds, and validation.
   url: "https://thecognitivekombucha.com",
