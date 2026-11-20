@@ -22,3 +22,6 @@ Thumbs.db
 # invisible to the build either way. Ignored so `git add -A` can't sweep
 # a half-written draft into a commit.
 content/**/scratch*
+
+# local AI assistant instructions
+CLAUDE.md

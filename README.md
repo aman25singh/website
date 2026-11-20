@@ -92,8 +92,6 @@ scripts/              Scaffolding and publishing checks
 .github/workflows/    Verification and GitHub Pages deployment
 ```
 
-For contributor-specific conventions and the full maintenance notes, see [CLAUDE.md](CLAUDE.md).
-
 ## License
 
 Content copyright Aman Singh. Code is free to reference.

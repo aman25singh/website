@@ -35,7 +35,7 @@ const {
 
 const canonical = new URL(Astro.url.pathname, site.url).href.replace(/\/$/, "") || site.url;
 const socialImage = new URL(image, site.url).href;
-const fullTitle = title === site.title ? title : `${title} — ${site.title}`;
+const fullTitle = title === site.title ? title : `${title} | ${site.title}`;
 
 // JSON-LD for articles improves rich results; harmless for readers.
 const jsonLd = article
