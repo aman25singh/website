@@ -8,7 +8,7 @@ export const site = {
   tagline: "Notes, experiments, and small things that matter",
   description:
     "An engineering notebook and personal publication: writing on software, systems, cloud, data, finance, and whatever I'm learning.",
-  author: "Aman Singh",
+  author: "Aman",
   // Canonical origin, shared with Astro config, SEO, feeds, and validation.
   url: "https://thecognitivekombucha.com",
   // Optional social handles; leave blank to omit. Do not invent these.
