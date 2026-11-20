@@ -18,6 +18,9 @@ export const site = {
   },
   // The @handle used for Twitter card attribution, if any.
   twitterHandle: "",
+  // Cloudflare Web Analytics site token (Cloudflare dashboard → Web Analytics →
+  // Manage site → JS snippet). Leave blank to omit the beacon.
+  cloudflareAnalyticsToken: "f0d7af3d8b0f4d4e82d8fdc856dfb392",
   navigation: [
     { label: "Notebook", href: "/notebook" },
     { label: "About", href: "/about" },

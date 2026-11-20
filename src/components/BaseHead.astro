@@ -103,4 +103,14 @@ const jsonLd = article
   rel="stylesheet"
 />
 
+<!-- Cloudflare Web Analytics (cookieless) -->
+{site.cloudflareAnalyticsToken && (
+  <script
+    is:inline
+    type="module"
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon={JSON.stringify({ token: site.cloudflareAnalyticsToken })}
+  />
+)}
+
 {jsonLd && <script type="application/ld+json" is:inline set:html={scriptJson(jsonLd)} />}
