@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "parse5": "^8.0.0",
+    "parse5": "^8.1.1",
     "prettier": "^3.5.0",
     "prettier-plugin-astro": "^1.1.0",
     "sharp": "^0.35.5",
