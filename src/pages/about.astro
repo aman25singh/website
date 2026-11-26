@@ -39,7 +39,15 @@ import "../styles/prose.css";
             GitHub: <a href={site.social.github}>{site.social.github.replace("https://", "")}</a>
           </li>
         )}
-        <!-- PLACEHOLDER: add other links (email, Mastodon, LinkedIn) as desired. -->
+        {site.social.linkedin && (
+          <li>
+            LinkedIn:{" "}
+            <a href={site.social.linkedin} rel="me">
+              {site.social.linkedin.replace("https://www.", "").replace(/\/$/, "")}
+            </a>
+          </li>
+        )}
+        <!-- PLACEHOLDER: add other links (email, Mastodon) as desired. -->
       </ul>
     </div>
   </div>

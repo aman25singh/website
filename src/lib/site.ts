@@ -14,6 +14,7 @@ export const site = {
   // Optional social handles; leave blank to omit. Do not invent these.
   social: {
     github: "https://github.com/aman25singh",
+    linkedin: "https://www.linkedin.com/in/aman-singh-thakur-a78b21193/",
     // twitter: "https://twitter.com/...",
   },
   // The @handle used for Twitter card attribution, if any.
